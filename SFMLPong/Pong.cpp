@@ -5,8 +5,6 @@
 using namespace Game;
 using namespace sf;
 
-inline RenderWindow* window; 
-
 Pong::Pong(RenderWindow* window)
 {
 	this->window = window;

@@ -5,10 +5,6 @@ using namespace Game;
 using namespace std;
 using namespace sf;
 
-RenderWindow* window;
-Pong* pong;
-bool running;
-
 GameInstance::GameInstance()
 {
 	running = true;

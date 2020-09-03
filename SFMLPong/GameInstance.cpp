@@ -1,9 +1,4 @@
-#include <iostream>
 #include "GameInstance.h"
-
-using namespace Game;
-using namespace std;
-using namespace sf;
 
 GameInstance::GameInstance()
 {

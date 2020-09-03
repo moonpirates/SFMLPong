@@ -1,9 +1,12 @@
 #ifndef _GAMEINSTANCE_
 #define _GAMEINSTANCE_
 
-#include "Pong.h"
+#include <iostream>
 #include "SFML\Graphics.hpp"
+#include "Pong.h"
 
+using namespace Game;
+using namespace std;
 using namespace sf;
 
 namespace Game

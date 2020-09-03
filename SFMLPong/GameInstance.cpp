@@ -1,23 +1,20 @@
 #include <iostream>
-#include <SFML\Graphics.hpp>
 #include "GameInstance.h"
-#include "Pong.h"
 
 using namespace Game;
 using namespace std;
 using namespace sf;
 
-bool running;
-
 RenderWindow* window;
 Pong* pong;
+bool running;
 
 GameInstance::GameInstance()
 {
 	running = true;
 
-	SetupWindow();
-	SetupGame();
+	window = SetupWindow();
+	pong = SetupGame(window);
 	Run();
 }
 
@@ -27,15 +24,16 @@ GameInstance::~GameInstance()
 	delete pong;
 }
 
-void GameInstance::SetupWindow()
+RenderWindow* GameInstance::SetupWindow()
 {
 	VideoMode videoMode = VideoMode(640, 480);
-	window = new RenderWindow(videoMode, "SFML Pong");
+	RenderWindow* window = new RenderWindow(videoMode, "SFML Pong");
+	return window;
 }
 
-void GameInstance::SetupGame()
+Pong* GameInstance::SetupGame(RenderWindow* window)
 {
-	pong = new Pong(window);
+	return new Pong(window);
 }
 
 void GameInstance::Run()

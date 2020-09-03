@@ -3,9 +3,12 @@
 #include "Pong.h"
 
 using namespace Game;
-using namespace std;
+using namespace sf;
 
-Pong::Pong(sf::RenderWindow* window)
+inline RenderWindow* window; 
+
+Pong::Pong(RenderWindow* window)
 {
-
+	this->window = window;
+	std::cout << "this: " << this << " window: " << window;
 }

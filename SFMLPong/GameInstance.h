@@ -1,4 +1,10 @@
-#pragma once
+#ifndef _GAMEINSTANCE_
+#define _GAMEINSTANCE_
+
+#include "Pong.h"
+#include "SFML\Graphics.hpp"
+
+using namespace sf;
 
 namespace Game
 {
@@ -7,12 +13,17 @@ namespace Game
 	public:
 		GameInstance();
 		~GameInstance();
+		
 		bool running;
 
 	private:
-		void SetupWindow();
-		void SetupGame();
+		RenderWindow* SetupWindow();
+		Pong* SetupGame(RenderWindow*);
 		void Run();
+
+		RenderWindow* window;
+		Pong* pong;
 	};
 }
 
+#endif

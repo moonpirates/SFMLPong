@@ -8,7 +8,7 @@ namespace Game
 	{
 	public:
 		Controller(Paddle* paddle);
-	private:
+	protected:
 		Paddle* paddle;
 	};
 }

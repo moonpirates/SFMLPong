@@ -9,7 +9,6 @@ int main()
 
 	while (gameInstance.running)
 	{
-
 	}
 
 	return 0;

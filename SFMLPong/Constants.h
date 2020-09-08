@@ -3,9 +3,11 @@ namespace Game
 	class Constants
 	{
 	public:
-		static const int SCREEN_RESOLUTION_WIDTH = 640;
-		static const int SCREEN_RESOLUTION_HEIGHT = 480;
-		static const int PADDLE_WIDTH = 25;
-		static const int PADDLE_HEIGHT = 100;
+		static const int SCREEN_RESOLUTION_WIDTH;
+		static const int SCREEN_RESOLUTION_HEIGHT;
+		static const float PADDLE_WIDTH;
+		static const float PADDLE_HEIGHT;
+		static const float PADDLE_INITIAL_SPEED;
+		static const float PADDLE_DECELERATION;
 	};
 }

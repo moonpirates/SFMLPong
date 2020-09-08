@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Paddle.h"
 #include "Updatable.h"
+#include "KeyboardController.h"
 
 using namespace sf;
 using namespace std;
@@ -18,6 +19,7 @@ namespace Game
 		void Update() override;
 
 	private:
+		KeyboardController* keyboardController;
 		RenderWindow* window;
 		Paddle* paddleLeft;
 		Paddle* paddleRight;

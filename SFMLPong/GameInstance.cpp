@@ -1,5 +1,6 @@
 #include "GameInstance.h"
 #include "Constants.h"
+#include "Time.h"
 
 GameInstance::GameInstance()
 {
@@ -30,10 +31,14 @@ Pong* GameInstance::SetupGame(RenderWindow* window)
 
 void GameInstance::Run()
 {
+	Clock clock = Clock();
+
 	while (window->isOpen())
 	{
-		Event event;
+		Game::Time::DeltaTime = clock.getElapsedTime().asSeconds();
+		clock.restart();
 
+		Event event;
 		while (window->pollEvent(event))
 		{
 			if (event.type == Event::Closed)

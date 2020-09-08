@@ -1,4 +1,5 @@
 #include "Pong.h"
+#include "KeyboardController.h"
 
 using namespace Game;
 
@@ -6,8 +7,9 @@ Pong::Pong(RenderWindow* window)
 {
 	this->window = window;
 
-	paddleLeft = new Paddle(Orientation::Left, 0.01f, window);
-	paddleRight = new Paddle(Orientation::Right, 0.01f, window);
+	paddleLeft = new Paddle(Orientation::Left, window);
+	paddleRight = new Paddle(Orientation::Right, window);
+	keyboardController = new KeyboardController(paddleRight);
 }
 
 Pong::~Pong()
@@ -18,6 +20,7 @@ Pong::~Pong()
 
 void Game::Pong::Update()
 {
+	keyboardController->Update();
 	paddleLeft->Update();
 	paddleRight->Update();
 }

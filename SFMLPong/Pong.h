@@ -1,22 +1,26 @@
-#ifndef _PONG_
-#define _PONG_
+#pragma once
 
 #include <SFML\Graphics.hpp>
 #include <iostream>
+#include "Paddle.h"
+#include "Updatable.h"
 
 using namespace sf;
 using namespace std;
 
 namespace Game
 {
-	class Pong
+	class Pong : public Updatable
 	{
 	public:
-		Pong(RenderWindow*);
+		Pong(RenderWindow* window);
+		~Pong();
+		void Update() override;
 
 	private:
 		RenderWindow* window;
+		Paddle* paddleLeft;
+		Paddle* paddleRight;
 	};
 }
 
-#endif

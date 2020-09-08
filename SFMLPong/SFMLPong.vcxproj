@@ -147,13 +147,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Controller.cpp" />
     <ClCompile Include="GameInstance.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Paddle.cpp" />
     <ClCompile Include="Pong.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Constants.h" />
+    <ClInclude Include="Controller.h" />
+    <ClInclude Include="Direction.h" />
     <ClInclude Include="GameInstance.h" />
+    <ClInclude Include="Orientation.h" />
+    <ClInclude Include="Paddle.h" />
     <ClInclude Include="Pong.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Updatable.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SFMLPong.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

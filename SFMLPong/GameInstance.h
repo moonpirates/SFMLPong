@@ -1,5 +1,4 @@
-#ifndef _GAMEINSTANCE_
-#define _GAMEINSTANCE_
+#pragma once
 
 #include <iostream>
 #include "SFML\Graphics.hpp"
@@ -21,12 +20,10 @@ namespace Game
 
 	private:
 		RenderWindow* SetupWindow();
-		Pong* SetupGame(RenderWindow*);
+		Pong* SetupGame(RenderWindow* window);
 		void Run();
 
 		RenderWindow* window;
 		Pong* pong;
 	};
 }
-
-#endif

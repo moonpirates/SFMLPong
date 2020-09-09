@@ -83,7 +83,7 @@ bool Pong::BallHitsTopOrBottom(Rect<float>& ballRect)
 		return true;
 	}
 
-	//return false;
+	return false;
 }
 
 tuple<bool, Orientation> Pong::BallPassedPaddle(Rect<float>& ballRect)

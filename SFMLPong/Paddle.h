@@ -15,6 +15,7 @@ namespace Game
 		Paddle(Orientation orientation, RenderWindow* window);
 		void Move(Direction direction);
 		void Update();
+		Rect<float> GetRect();
 
 	private:
 		RenderWindow* window;

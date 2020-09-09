@@ -15,16 +15,12 @@ Paddle::Paddle(Orientation orientation, RenderWindow* window)
 	height = Constants::PADDLE_HEIGHT;
 	velocity = 0.0f;
 	
-	x = orientation == Orientation::Right ? Constants::SCREEN_RESOLUTION_WIDTH : 0.0f;
-	y = Constants::SCREEN_RESOLUTION_HEIGHT / 2.0f;
+	x = orientation == Orientation::Left ? 0.0f : Constants::SCREEN_RESOLUTION_WIDTH - width;
+	y = (Constants::SCREEN_RESOLUTION_HEIGHT / 2.0f) - height / 2.0f;
 	
 	graphic = GetGraphic();
-	graphic->setFillColor(orientation == Orientation::Right ? Color::Blue : Color::White);
-
-	float originX = orientation == Orientation::Right ? Constants::PADDLE_WIDTH : 0.0f;
-	float originY = Constants::PADDLE_HEIGHT / 2;
-
-	graphic->setOrigin(originX, originY);
+	graphic->setFillColor(orientation == Orientation::Left ? Color::White : Color::Blue);
+	graphic->setSize(Vector2(width, height));
 }
 
 void Paddle::Move(Direction direction)
@@ -37,17 +33,20 @@ void Paddle::Update()
 {
 	// TODO include support for vertical orientation
 	int sign = currentDirection == Direction::Down ? 1 : -1;
-	float halfHeight = height / 2.0f;
-	float minY = halfHeight;
-	float maxY = Constants::SCREEN_RESOLUTION_HEIGHT - halfHeight;
+	float minY = 0;
+	float maxY = Constants::SCREEN_RESOLUTION_HEIGHT - height;
 	
 	y += velocity * sign * Time::DeltaTime;
 	y = std::clamp(y, minY, maxY);
 	velocity = std::max(velocity - Constants::PADDLE_DECELERATION * Time::DeltaTime, 0.0f);
 	
-	graphic->setSize(Vector2(width, height));
 	graphic->setPosition(Vector2(x, y));
 	window->draw(*graphic);
+}
+
+Rect<float> Paddle::GetRect()
+{
+	return Rect<float>(x, y, width, height);
 }
 
 RectangleShape* Paddle::GetGraphic()

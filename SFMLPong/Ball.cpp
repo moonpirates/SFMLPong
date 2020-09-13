@@ -1,6 +1,4 @@
 #include "Ball.h"
-#include "Constants.h"
-#include "Time.h"
 
 using namespace Game;
 using namespace std;
@@ -30,24 +28,39 @@ void Ball::Reset()
 {
 	isMoving = false;
 	position = Vector2f(
-		(Constants::SCREEN_RESOLUTION_WIDTH / 2.0f) - (Constants::BALL_DIAMETER / 2), 
-		(Constants::SCREEN_RESOLUTION_HEIGHT / 2.0f) - (Constants::BALL_DIAMETER / 2)
+		(Constants::SCREEN_RESOLUTION_WIDTH / 2.0f) - (Constants::BALL_DIAMETER / 2.0f), 
+		(Constants::SCREEN_RESOLUTION_HEIGHT / 2.0f) - (Constants::BALL_DIAMETER / 2.0f)
 	);
 }
 
-void Ball::Bounce()
+void Ball::Bounce(Orientation orientation)
 {
-	cout << "Bounce" << endl;
+	if (orientation == Orientation::Top || orientation == Orientation::Bottom)
+	{
+		cout << "hit top or botton" << endl;
+		direction = Vector2(direction.x, -direction.y);
+	}
+	else
+	{
+		cout << "hit paddle" << endl;
+		direction = Vector2(-direction.x, direction.y);
+	}
 
-	direction = Vector2(-direction.y, direction.x);
+	cout << "POINK: " << direction.x << ", " << direction.y << "\npos: "
+		<< position.x << "," << position.y;
+
+	//position -= velocity;
+
+	cout << "\t position is now: " << position.x << "," << position.y << endl;
 }
 
 void Ball::Update()
 {
-	if (isMoving)
-	{
-		position += direction * speed * Time::DeltaTime;
-	}
+
+	velocity = isMoving ? direction * speed * Time::DeltaTime : Vector2f(0, 0);
+	position += velocity;
+	//cout << "\t\tUPDATE pos: " << position.x << "," << position.y << "\n\t\tdirection: "
+	//	<< direction.x << ", " << direction.y << endl;
 
 	graphic->setPosition(position);
 	window->draw(*graphic);

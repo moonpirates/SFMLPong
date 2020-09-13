@@ -3,6 +3,8 @@
 #include <iostream>
 #include "SFML\Graphics.hpp"
 #include "Pong.h"
+#include "Constants.h"
+#include "Time.h"
 
 using namespace Game;
 using namespace std;

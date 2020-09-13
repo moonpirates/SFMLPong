@@ -3,6 +3,9 @@
 #include <iostream>
 #include <SFML\Graphics.hpp>
 #include "Updatable.h"
+#include "Constants.h"
+#include "Time.h"
+#include "Orientation.h"
 
 using namespace sf;
 
@@ -15,7 +18,7 @@ namespace Game
 		void Start();
 		void Pause();
 		void Reset();
-		void Bounce();
+		void Bounce(Orientation orientation);
 		void Update() override;
 		bool IsMoving();
 		Rect<float> GetRect();
@@ -25,6 +28,7 @@ namespace Game
 		RectangleShape* graphic;
 		float speed;
 		Vector2f direction;
+		Vector2f velocity;
 		Vector2f position;
 		bool isMoving;
 

@@ -6,6 +6,7 @@
 #include "Updatable.h"
 #include "KeyboardController.h"
 #include "Ball.h"
+#include "Constants.h"
 
 using namespace sf;
 using namespace std;
@@ -28,9 +29,9 @@ namespace Game
 
 		void CheckForRoundStart();
 		void HandleCollision();
-		bool BallHitsTopOrBottom(Rect<float>& ballRect);
-		tuple<bool, Orientation> BallPassedPaddle(Rect<float>& ballRect);
-		tuple<bool, Orientation> BallHitsPaddle(Rect<float>& ballRect, Rect<float>& paddleLeftRect, Rect<float>& paddleRightRect);
+		bool BallHitsFloorOrCeiling(Rect<float>& ballRect, Orientation& orientation);
+		bool BallPassedPaddle(Rect<float>& ballRect, Paddle *&passedPaddle);
+		bool BallHitsPaddle(Rect<float>& ballRect, Paddle *&hitPaddle);
 	};
 }
 

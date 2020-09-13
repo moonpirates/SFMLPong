@@ -1,6 +1,4 @@
 #include "Pong.h"
-#include "KeyboardController.h"
-#include "Constants.h"
 
 using namespace Game;
 using namespace std;
@@ -38,62 +36,105 @@ void Pong::CheckForRoundStart()
 {
 	if (Keyboard::isKeyPressed(Keyboard::Space))
 	{
-		cout << "STart";
+		cout << "Start" << endl;
 		ball->Start();
 	}
 }
 
 void Pong::HandleCollision()
 {
-	Rect<float> paddleLeftRect = paddleLeft->GetRect();
-	Rect<float> paddleRightRect = paddleRight->GetRect();
 	Rect<float> ballRect = ball->GetRect();
 
-	tuple<bool, Orientation> ballPassedPaddleTuple = BallPassedPaddle(ballRect);
-	if (get<0>(ballPassedPaddleTuple))
+	// Test for score
+	Paddle* passedPaddle = nullptr;
+	if (BallPassedPaddle(ballRect, passedPaddle))
 	{
-		//Mistake by std::get<1>
+		//ball->Reset();
+		ball->Bounce(passedPaddle == paddleLeft ? Orientation::Left : Orientation::Right);
+
+		if (passedPaddle == paddleLeft)
+		{
+			cout << "Score for right." << endl;
+			
+		}
+		else
+		{
+			cout << "Score for left." << endl;
+		}
+
 		return;
 	}
 
-	tuple<bool, Orientation> ballHitsPaddleTuple = BallHitsPaddle(ballRect, paddleLeftRect, paddleRightRect);
-	if (get<0>(ballHitsPaddleTuple))
+	// Test for paddle hit
+	Paddle* hitPaddle = nullptr;
+	if (BallHitsPaddle(ballRect, hitPaddle))
 	{
-		ball->Bounce();
+		ball->Bounce(hitPaddle == paddleLeft ? Orientation::Left : Orientation::Right);
+		cout << "Bounce on paddle" << endl;
 		return;
 	}
 	
-	if (BallHitsTopOrBottom(ballRect))
+	// Test for floor or ceiling hit
+	Orientation orientation;
+	if (BallHitsFloorOrCeiling(ballRect, orientation))
 	{
-		ball->Bounce();
+		cout << (orientation == Orientation::Top ? "ceil" : "floor") << endl;
+
+		ball->Bounce(orientation);
 		return;
 	}
 }
 
-bool Pong::BallHitsTopOrBottom(Rect<float>& ballRect)
+bool Pong::BallHitsFloorOrCeiling(Rect<float>& ballRect, Orientation& orientation)
 {
-	if (ballRect.top <= 0 || ballRect.top + ballRect.height >= Constants::SCREEN_RESOLUTION_HEIGHT)
+	bool hit = false;
+
+	if (ballRect.top <= 0)
 	{
-		return true;
+		hit = true;
+		orientation = Orientation::Top;
+	}
+	else if (ballRect.top + ballRect.height >= Constants::SCREEN_RESOLUTION_HEIGHT)
+	{
+		hit = true;
+		orientation = Orientation::Bottom;
 	}
 
-	// FAKE BOUNCE EVERYWHERE
-	if (ballRect.left <= 0 || ballRect.left + ballRect.width >= Constants::SCREEN_RESOLUTION_WIDTH)
+	return hit;
+}
+
+bool Pong::BallPassedPaddle(Rect<float>& ballRect, Paddle *&passedPaddle)
+{
+	bool passed = false;
+
+	if (ballRect.left <= 0)
 	{
-		return true;
+		passed = true;
+		passedPaddle = paddleLeft;
+	}
+	else if (ballRect.left + ballRect.width >= Constants::SCREEN_RESOLUTION_WIDTH)
+	{
+		passed = true;
+		passedPaddle = paddleRight;
 	}
 
-	return false;
+	return passed;
 }
 
-tuple<bool, Orientation> Pong::BallPassedPaddle(Rect<float>& ballRect)
+bool Pong::BallHitsPaddle(Rect<float>& ballRect, Paddle *&hitPaddle)
 {
-	return tuple<bool, Orientation>();
+	bool hit = false;
+
+	if (ballRect.intersects(paddleLeft->GetRect()))
+	{
+		hit = true;
+		hitPaddle = paddleLeft;
+	}
+	else if (ballRect.intersects(paddleRight->GetRect()))
+	{
+		hit = true;
+		hitPaddle = paddleRight;
+	}
+
+	return hit;
 }
-
-tuple<bool, Orientation> Pong::BallHitsPaddle(Rect<float>& ballRect, Rect<float>& paddleLeftRect, Rect<float>& paddleRightRect)
-{
-	return tuple<bool, Orientation>();
-}
-
-

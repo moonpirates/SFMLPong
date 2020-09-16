@@ -20,14 +20,19 @@ Pong::~Pong()
 	delete ball;
 }
 
+float prevBallY;
+
 void Pong::Update()
 {
 	CheckForRoundStart();
 	
 	keyboardController->Update();
 	ball->Update();
+	paddleLeft->Move(ball->GetRect().top - prevBallY < 0 ? Direction::Up : Direction::Down);
 	paddleLeft->Update();
 	paddleRight->Update();
+
+	prevBallY = ball->GetRect().top;
 
 	HandleCollision();
 }
@@ -44,18 +49,18 @@ void Pong::CheckForRoundStart()
 void Pong::HandleCollision()
 {
 	Rect<float> ballRect = ball->GetRect();
+	Rect<float> screenRect = Rect<float>(0, 0, Constants::SCREEN_RESOLUTION_WIDTH, Constants::SCREEN_RESOLUTION_HEIGHT);
 
 	// Test for score
 	Paddle* passedPaddle = nullptr;
 	if (BallPassedPaddle(ballRect, passedPaddle))
 	{
-		//ball->Reset();
-		ball->Bounce(passedPaddle == paddleLeft ? Orientation::Left : Orientation::Right);
+		ball->Reset();
+		//ball->Bounce(passedPaddle == paddleLeft ? Orientation::Left : Orientation::Right, screenRect);
 
 		if (passedPaddle == paddleLeft)
 		{
 			cout << "Score for right." << endl;
-			
 		}
 		else
 		{
@@ -69,7 +74,7 @@ void Pong::HandleCollision()
 	Paddle* hitPaddle = nullptr;
 	if (BallHitsPaddle(ballRect, hitPaddle))
 	{
-		ball->Bounce(hitPaddle == paddleLeft ? Orientation::Left : Orientation::Right);
+		ball->Bounce(hitPaddle == paddleLeft ? Orientation::Left : Orientation::Right, hitPaddle->GetRect());
 		cout << "Bounce on paddle" << endl;
 		return;
 	}
@@ -78,9 +83,9 @@ void Pong::HandleCollision()
 	Orientation orientation;
 	if (BallHitsFloorOrCeiling(ballRect, orientation))
 	{
+		ball->Bounce(orientation, screenRect);
 		cout << (orientation == Orientation::Top ? "ceil" : "floor") << endl;
 
-		ball->Bounce(orientation);
 		return;
 	}
 }

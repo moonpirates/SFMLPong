@@ -8,8 +8,9 @@ Ball::Ball(RenderWindow* window)
 	this->window = window;
 	
 	speed = Constants::BALL_INITIAL_SPEED;
-	direction = Vector2f(1, 1);
+	direction = Vector2f(1, -1);
 	graphic = GetGraphic();
+	graphic->setFillColor(Color::Red);
 
 	Reset();
 }
@@ -33,30 +34,35 @@ void Ball::Reset()
 	);
 }
 
-void Ball::Bounce(Orientation orientation)
+void Ball::Bounce(Orientation orientation, Rect<float> otherRect)
 {
+	cout << "------------------------------------------" << endl;
+
+	Rect<float> intersectionRect;
+	GetRect().intersects(otherRect, intersectionRect);
+
 	if (orientation == Orientation::Top || orientation == Orientation::Bottom)
 	{
-		cout << "hit top or botton" << endl;
+		float overlap = Constants::BALL_DIAMETER - intersectionRect.height;
+
+		cout << "hit top or botton, overlap: " << overlap << endl;
+
 		direction = Vector2(direction.x, -direction.y);
 	}
 	else
 	{
 		cout << "hit paddle" << endl;
-		direction = Vector2(-direction.x, direction.y);
+		AABBToRect(intersectionRect);
+
+		
 	}
 
-	cout << "POINK: " << direction.x << ", " << direction.y << "\npos: "
-		<< position.x << "," << position.y;
+	cout << "POINK: " << direction.x << ", " << direction.y << endl;
 
-	//position -= velocity;
-
-	cout << "\t position is now: " << position.x << "," << position.y << endl;
 }
 
 void Ball::Update()
 {
-
 	velocity = isMoving ? direction * speed * Time::DeltaTime : Vector2f(0, 0);
 	position += velocity;
 	//cout << "\t\tUPDATE pos: " << position.x << "," << position.y << "\n\t\tdirection: "
@@ -73,11 +79,44 @@ bool Ball::IsMoving()
 
 Rect<float> Ball::GetRect()
 {
-	return Rect<float>(position.x, position.y, Constants::BALL_DIAMETER, Constants::BALL_DIAMETER);
+	return graphic->getGlobalBounds();
 }
 
 RectangleShape* Ball::GetGraphic()
 {
 	RectangleShape* graphic = new RectangleShape(Vector2f(Constants::BALL_DIAMETER, Constants::BALL_DIAMETER));
 	return graphic;
+}
+
+void Ball::AABBToRect(Rect<float>& intersectionRect)
+{
+	Vector2f offset;
+	Vector2f offsetDir;
+	if (intersectionRect.height > intersectionRect.width)
+	{
+		// intersected horizontally
+		cout << "hit left or right" << endl;
+
+		offsetDir = Math::NormalizeVector(Math::FlattenVectorY(direction));
+
+		offset = offsetDir * intersectionRect.width;
+
+		direction = Vector2(-direction.x, direction.y);
+	}
+	else
+	{
+		// interrsected vertically
+		cout << "hit top or bottom" << endl;
+		offsetDir = Math::NormalizeVector(Math::FlattenVectorX(direction));
+		offset = offsetDir * intersectionRect.height;
+
+		direction = Vector2(direction.x, -direction.y);
+	}
+
+	cout << "[AABB] moving in: " << offset.x << ", " << offset.y << " || direction: " << offsetDir.x << ", " << offsetDir.y << endl;
+
+	position -= offset;
+
+	graphic->setPosition(position);
+	window->draw(*graphic);
 }

@@ -46,7 +46,7 @@ void Paddle::Update()
 
 Rect<float> Paddle::GetRect()
 {
-	return Rect<float>(x, y, width, height);
+	return graphic->getGlobalBounds();
 }
 
 RectangleShape* Paddle::GetGraphic()

@@ -6,6 +6,7 @@
 #include "Constants.h"
 #include "Time.h"
 #include "Orientation.h"
+#include "Math.h"
 
 using namespace sf;
 
@@ -18,7 +19,7 @@ namespace Game
 		void Start();
 		void Pause();
 		void Reset();
-		void Bounce(Orientation orientation);
+		void Bounce(Orientation orientation, Rect<float> intersectionRect);
 		void Update() override;
 		bool IsMoving();
 		Rect<float> GetRect();
@@ -33,6 +34,7 @@ namespace Game
 		bool isMoving;
 
 		RectangleShape* GetGraphic();
+		void AABBToRect(Rect<float>& otherRect);
 	};
 }
 

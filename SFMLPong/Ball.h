@@ -23,6 +23,7 @@ namespace Game
 		void Update() override;
 		bool IsMoving();
 		Rect<float> GetRect();
+		void StepUpSpeed();
 
 	private:
 		RenderWindow* window;

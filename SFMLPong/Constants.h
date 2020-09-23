@@ -15,5 +15,6 @@ namespace Game
 
 		static const float BALL_DIAMETER;
 		static const float BALL_INITIAL_SPEED;
+		static const float BALL_SPEED_STEP_VALUE;
 	};
 }

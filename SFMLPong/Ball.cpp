@@ -27,6 +27,7 @@ void Ball::Pause()
 
 void Ball::Reset()
 {
+	speed = Constants::BALL_INITIAL_SPEED;
 	isMoving = false;
 	position = Vector2f(
 		(Constants::SCREEN_RESOLUTION_WIDTH / 2.0f) - (Constants::BALL_DIAMETER / 2.0f), 
@@ -53,8 +54,6 @@ void Ball::Bounce(Orientation orientation, Rect<float> otherRect)
 	{
 		cout << "hit paddle" << endl;
 		AABBToRect(intersectionRect);
-
-		
 	}
 
 	cout << "POINK: " << direction.x << ", " << direction.y << endl;
@@ -80,6 +79,11 @@ bool Ball::IsMoving()
 Rect<float> Ball::GetRect()
 {
 	return graphic->getGlobalBounds();
+}
+
+void Ball::StepUpSpeed()
+{
+	speed += Constants::BALL_SPEED_STEP_VALUE;
 }
 
 RectangleShape* Ball::GetGraphic()

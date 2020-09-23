@@ -7,6 +7,7 @@
 #include "KeyboardController.h"
 #include "Ball.h"
 #include "Constants.h"
+#include "AIController.h"
 
 using namespace sf;
 using namespace std;
@@ -22,6 +23,7 @@ namespace Game
 
 	private:
 		KeyboardController* keyboardController;
+		AIController* aiController;
 		RenderWindow* window;
 		Paddle* paddleLeft;
 		Paddle* paddleRight;

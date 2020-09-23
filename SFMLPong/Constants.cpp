@@ -12,3 +12,4 @@ const float Constants::PADDLE_DECELERATION = 4000.0f;
 
 const float Constants::BALL_DIAMETER = 20.0f;
 const float Constants::BALL_INITIAL_SPEED = 200.0f;
+const float Constants::BALL_SPEED_STEP_VALUE = 10.0f;

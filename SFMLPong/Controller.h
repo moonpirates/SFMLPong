@@ -4,7 +4,7 @@
 
 namespace Game
 {
-	class Controller
+	class Controller : public Updatable
 	{
 	public:
 		Controller(Paddle* paddle);

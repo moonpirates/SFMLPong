@@ -8,7 +8,7 @@ namespace Game
 	{
 	public:
 		KeyboardController(Paddle* paddle);
-		void Update();
+		void Update() override;
 	};
 }
 

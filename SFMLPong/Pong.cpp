@@ -11,6 +11,7 @@ Pong::Pong(RenderWindow* window)
 	paddleRight = new Paddle(Orientation::Right, window);
 	ball = new Ball(window);
 	keyboardController = new KeyboardController(paddleRight);
+	aiController = new AIController(paddleLeft, ball);
 }
 
 Pong::~Pong()
@@ -18,21 +19,19 @@ Pong::~Pong()
 	delete paddleLeft;
 	delete paddleRight;
 	delete ball;
+	delete keyboardController;
+	delete aiController;
 }
-
-float prevBallY;
 
 void Pong::Update()
 {
 	CheckForRoundStart();
 	
 	keyboardController->Update();
+	aiController->Update();
 	ball->Update();
-	paddleLeft->Move(ball->GetRect().top - prevBallY < 0 ? Direction::Up : Direction::Down);
 	paddleLeft->Update();
 	paddleRight->Update();
-
-	prevBallY = ball->GetRect().top;
 
 	HandleCollision();
 }
@@ -75,6 +74,7 @@ void Pong::HandleCollision()
 	if (BallHitsPaddle(ballRect, hitPaddle))
 	{
 		ball->Bounce(hitPaddle == paddleLeft ? Orientation::Left : Orientation::Right, hitPaddle->GetRect());
+		ball->StepUpSpeed();
 		cout << "Bounce on paddle" << endl;
 		return;
 	}

@@ -72,15 +72,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -147,33 +155,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AIController.cpp" />
-    <ClCompile Include="Ball.cpp" />
-    <ClCompile Include="Constants.cpp" />
-    <ClCompile Include="Controller.cpp" />
-    <ClCompile Include="GameInstance.cpp" />
-    <ClCompile Include="KeyboardController.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Math.cpp" />
-    <ClCompile Include="Paddle.cpp" />
-    <ClCompile Include="Pong.cpp" />
-    <ClCompile Include="Time.cpp" />
+    <ClCompile Include="src\AIController.cpp" />
+    <ClCompile Include="src\Ball.cpp" />
+    <ClCompile Include="src\Constants.cpp" />
+    <ClCompile Include="src\Controller.cpp" />
+    <ClCompile Include="src\GameInstance.cpp" />
+    <ClCompile Include="src\KeyboardController.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Math.cpp" />
+    <ClCompile Include="src\Paddle.cpp" />
+    <ClCompile Include="src\Pong.cpp" />
+    <ClCompile Include="src\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AIController.h" />
-    <ClInclude Include="Ball.h" />
-    <ClInclude Include="Constants.h" />
-    <ClInclude Include="Controller.h" />
-    <ClInclude Include="Direction.h" />
-    <ClInclude Include="GameInstance.h" />
-    <ClInclude Include="KeyboardController.h" />
-    <ClInclude Include="Math.h" />
-    <ClInclude Include="Orientation.h" />
-    <ClInclude Include="Paddle.h" />
-    <ClInclude Include="Pong.h" />
+    <ClInclude Include="src\AIController.h" />
+    <ClInclude Include="src\Ball.h" />
+    <ClInclude Include="src\Constants.h" />
+    <ClInclude Include="src\Controller.h" />
+    <ClInclude Include="src\Direction.h" />
+    <ClInclude Include="src\GameInstance.h" />
+    <ClInclude Include="src\KeyboardController.h" />
+    <ClInclude Include="src\Math.h" />
+    <ClInclude Include="src\Orientation.h" />
+    <ClInclude Include="src\Paddle.h" />
+    <ClInclude Include="src\Pong.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Time.h" />
-    <ClInclude Include="Updatable.h" />
+    <ClInclude Include="src\Time.h" />
+    <ClInclude Include="src\Updatable.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SFMLPong.rc" />

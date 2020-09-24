@@ -33,7 +33,7 @@ void GameInstance::Run()
 
 	while (window->isOpen())
 	{
-		Game::Time::DeltaTime = clock.getElapsedTime().asSeconds();
+		Utils::Time::DeltaTime = clock.getElapsedTime().asSeconds();
 		clock.restart();
 
 		Event event;

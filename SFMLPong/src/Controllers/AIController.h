@@ -1,7 +1,7 @@
 #pragma once
 
+#include "Entities/Ball.h"
 #include "Controller.h"
-#include "Ball.h"
 
 namespace Game
 {
@@ -14,4 +14,3 @@ namespace Game
 		Ball* ball;
 	};
 }
-

@@ -1,7 +1,4 @@
 #include "Paddle.h"
-#include <iostream>
-#include "Constants.h"
-#include "Time.h"
 
 using namespace Game;
 
@@ -20,7 +17,7 @@ Paddle::Paddle(Orientation orientation, RenderWindow* window)
 	
 	graphic = GetGraphic();
 	graphic->setFillColor(orientation == Orientation::Left ? Color::White : Color::Blue);
-	graphic->setSize(Vector2(width, height));
+	graphic->setSize(Vector2f(width, height));
 }
 
 void Paddle::Move(Direction direction)
@@ -36,9 +33,9 @@ void Paddle::Update()
 	float minY = 0;
 	float maxY = Constants::SCREEN_RESOLUTION_HEIGHT - height;
 	
-	y += velocity * sign * Time::DeltaTime;
+	y += velocity * sign * Utils::Time::DeltaTime;
 	y = std::clamp(y, minY, maxY);
-	velocity = std::max(velocity - Constants::PADDLE_DECELERATION * Time::DeltaTime, 0.0f);
+	velocity = std::max(velocity - Constants::PADDLE_DECELERATION * Utils::Time::DeltaTime, 0.0f);
 	
 	graphic->setPosition(Vector2(x, y));
 	window->draw(*graphic);

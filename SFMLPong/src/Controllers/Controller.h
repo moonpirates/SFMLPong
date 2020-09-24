@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Paddle.h"
+#include "Entities/Paddle.h"
+#include "Systems/Updatable.h"
 
 namespace Game
 {

@@ -2,12 +2,12 @@
 
 #include <SFML\Graphics.hpp>
 #include <iostream>
-#include "Paddle.h"
-#include "Updatable.h"
-#include "KeyboardController.h"
-#include "Ball.h"
-#include "Constants.h"
-#include "AIController.h"
+#include "Constants/Constants.h"
+#include "Controllers/KeyboardController.h"
+#include "Controllers/AIController.h"
+#include "Entities/Ball.h"
+#include "Entities/Paddle.h"
+#include "Systems/Updatable.h"
 
 using namespace sf;
 using namespace std;

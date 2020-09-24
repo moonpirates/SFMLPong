@@ -1,10 +1,11 @@
 #pragma once
 
 #include <iostream>
-#include "SFML\Graphics.hpp"
-#include "Pong.h"
-#include "Constants.h"
-#include "Time.h"
+#include <SFML\Graphics.hpp>
+
+#include "Constants/Constants.h"
+#include "Main/Pong.h"
+#include "Utils/Time.h"
 
 using namespace Game;
 using namespace std;

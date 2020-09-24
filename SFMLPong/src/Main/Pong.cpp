@@ -1,7 +1,6 @@
 #include "Pong.h"
 
 using namespace Game;
-using namespace std;
 
 Pong::Pong(RenderWindow* window)
 {

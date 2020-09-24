@@ -1,5 +1,5 @@
 #include <iostream>;
-#include "GameInstance.h";
+#include "Main/GameInstance.h";
 
 using namespace Game;
 

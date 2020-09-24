@@ -2,6 +2,7 @@
 
 using namespace Game;
 using namespace std;
+using namespace Utils;
 
 Ball::Ball(RenderWindow* window)
 {
@@ -48,7 +49,7 @@ void Ball::Bounce(Orientation orientation, Rect<float> otherRect)
 
 		cout << "hit top or botton, overlap: " << overlap << endl;
 
-		direction = Vector2(direction.x, -direction.y);
+		direction = Vector2f(direction.x, -direction.y);
 	}
 	else
 	{
@@ -62,7 +63,7 @@ void Ball::Bounce(Orientation orientation, Rect<float> otherRect)
 
 void Ball::Update()
 {
-	velocity = isMoving ? direction * speed * Time::DeltaTime : Vector2f(0, 0);
+	velocity = isMoving ? direction * speed * Utils::Time::DeltaTime : Vector2f(0, 0);
 	position += velocity;
 	//cout << "\t\tUPDATE pos: " << position.x << "," << position.y << "\n\t\tdirection: "
 	//	<< direction.x << ", " << direction.y << endl;
@@ -105,7 +106,7 @@ void Ball::AABBToRect(Rect<float>& intersectionRect)
 
 		offset = offsetDir * intersectionRect.width;
 
-		direction = Vector2(-direction.x, direction.y);
+		direction = Vector2f(-direction.x, direction.y);
 	}
 	else
 	{
@@ -114,7 +115,7 @@ void Ball::AABBToRect(Rect<float>& intersectionRect)
 		offsetDir = Math::NormalizeVector(Math::FlattenVectorX(direction));
 		offset = offsetDir * intersectionRect.height;
 
-		direction = Vector2(direction.x, -direction.y);
+		direction = Vector2f(direction.x, -direction.y);
 	}
 
 	cout << "[AABB] moving in: " << offset.x << ", " << offset.y << " || direction: " << offsetDir.x << ", " << offsetDir.y << endl;

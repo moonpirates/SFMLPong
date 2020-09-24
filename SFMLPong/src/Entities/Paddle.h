@@ -1,9 +1,13 @@
 #pragma once
 
-#include <SFML\Graphics.hpp>
-#include "Direction.h"
-#include "Orientation.h"
-#include "Updatable.h"
+#include <iostream>
+#include <SFML/Graphics.hpp>
+
+#include "Constants/Constants.h"
+#include "Constants/Direction.h"
+#include "Constants/Orientation.h"
+#include "Systems/Updatable.h"
+#include "Utils/Time.h"
 
 using namespace sf;
 

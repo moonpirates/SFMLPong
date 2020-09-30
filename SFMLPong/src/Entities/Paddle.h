@@ -9,6 +9,7 @@
 #include "Systems/Updatable.h"
 #include "Utils/Time.h"
 
+using namespace std;
 using namespace sf;
 
 namespace Game
@@ -16,14 +17,15 @@ namespace Game
 	class Paddle : public Updatable
 	{
 	public:
-		Paddle(Orientation orientation, RenderWindow* window);
+		Paddle(Orientation orientation, RenderWindow& window);
+		~Paddle();
 		void Move(Direction direction);
 		void Update();
 		Rect<float> GetRect();
 
 	private:
-		RenderWindow* window;
-		RectangleShape* graphic;
+		RenderWindow& window;
+		unique_ptr<RectangleShape> graphic;
 		Orientation orientation;
 		float x;
 		float y;
@@ -33,7 +35,7 @@ namespace Game
 		float velocity;
 		Direction currentDirection;
 
-		RectangleShape* GetGraphic();
+		unique_ptr<RectangleShape> GetGraphic();
 	};
 }
 

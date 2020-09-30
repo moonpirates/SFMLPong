@@ -5,26 +5,24 @@ GameInstance::GameInstance()
 	running = true;
 
 	window = SetupWindow();
-	pong = SetupGame(window);
+	pong = SetupGame(*window);
 	Run();
 }
 
 GameInstance::~GameInstance()
 {
-	delete window;
-	delete pong;
 }
 
-RenderWindow* GameInstance::SetupWindow()
+unique_ptr<RenderWindow> GameInstance::SetupWindow()
 {
 	VideoMode videoMode = VideoMode(Constants::SCREEN_RESOLUTION_WIDTH, Constants::SCREEN_RESOLUTION_HEIGHT);
-	RenderWindow* window = new RenderWindow(videoMode, "SFML Pong");
-	return window;
+
+	return make_unique<RenderWindow>(videoMode, "SFML Pong");
 }
 
-Pong* GameInstance::SetupGame(RenderWindow* window)
+unique_ptr<Pong> GameInstance::SetupGame(RenderWindow& window)
 {
-	return new Pong(window);
+	return make_unique<Pong>(window);
 }
 
 void GameInstance::Run()

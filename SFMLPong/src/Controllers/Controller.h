@@ -8,8 +8,8 @@ namespace Game
 	class Controller : public Updatable
 	{
 	public:
-		Controller(Paddle* paddle);
+		Controller(Paddle& paddle);
 	protected:
-		Paddle* paddle;
+		Paddle& paddle;
 	};
 }

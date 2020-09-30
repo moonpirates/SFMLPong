@@ -17,23 +17,22 @@ namespace Game
 	class Pong : public Updatable
 	{
 	public:
-		Pong(RenderWindow* window);
-		~Pong();
+		Pong(RenderWindow& window);
 		void Update() override;
 
 	private:
-		KeyboardController* keyboardController;
-		AIController* aiController;
-		RenderWindow* window;
-		Paddle* paddleLeft;
-		Paddle* paddleRight;
-		Ball* ball;
+		RenderWindow& window;
+		unique_ptr<KeyboardController> keyboardController;
+		unique_ptr<AIController> aiController;
+		unique_ptr<Paddle> paddleLeft;
+		unique_ptr<Paddle> paddleRight;
+		unique_ptr<Ball> ball;
 
 		void CheckForRoundStart();
 		void HandleCollision();
 		bool BallHitsFloorOrCeiling(Rect<float>& ballRect, Orientation& orientation);
-		bool BallPassedPaddle(Rect<float>& ballRect, Paddle *&passedPaddle);
-		bool BallHitsPaddle(Rect<float>& ballRect, Paddle *&hitPaddle);
+		bool BallPassedPaddle(Rect<float>& ballRect, Paddle*& passedPaddle);
+		bool BallHitsPaddle(Rect<float>& ballRect, Paddle*& hitPaddle);
 	};
 }
 

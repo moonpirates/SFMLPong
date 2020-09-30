@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "Constants/Constants.h"
 #include "Main/Pong.h"
@@ -22,11 +22,11 @@ namespace Game
 		bool running;
 
 	private:
-		RenderWindow* SetupWindow();
-		Pong* SetupGame(RenderWindow* window);
+		unique_ptr<RenderWindow> SetupWindow();
+		unique_ptr<Pong> SetupGame(RenderWindow& window);
 		void Run();
 
-		RenderWindow* window;
-		Pong* pong;
+		unique_ptr<RenderWindow> window;
+		unique_ptr<Pong> pong;
 	};
 }

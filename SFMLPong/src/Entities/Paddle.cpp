@@ -1,12 +1,10 @@
 #include "Paddle.h"
 
+using namespace std;
 using namespace Game;
 
-Paddle::Paddle(Orientation orientation, RenderWindow* window)
+Paddle::Paddle(Orientation orientation, RenderWindow& window) : orientation(orientation), window(window)
 {
-	this->orientation = orientation;
-	this->window = window;
-	
 	speed = Constants::PADDLE_INITIAL_SPEED;
 	width = Constants::PADDLE_WIDTH;
 	height = Constants::PADDLE_HEIGHT;
@@ -20,6 +18,11 @@ Paddle::Paddle(Orientation orientation, RenderWindow* window)
 	graphic->setSize(Vector2f(width, height));
 }
 
+Paddle::~Paddle()
+{
+	std::cout << "Destructed paddle" << endl;
+}
+
 void Paddle::Move(Direction direction)
 {
 	currentDirection = direction;
@@ -28,7 +31,6 @@ void Paddle::Move(Direction direction)
 
 void Paddle::Update()
 {
-	// TODO include support for vertical orientation
 	int sign = currentDirection == Direction::Down ? 1 : -1;
 	float minY = 0;
 	float maxY = Constants::SCREEN_RESOLUTION_HEIGHT - height;
@@ -38,7 +40,7 @@ void Paddle::Update()
 	velocity = std::max(velocity - Constants::PADDLE_DECELERATION * Utils::Time::DeltaTime, 0.0f);
 	
 	graphic->setPosition(Vector2(x, y));
-	window->draw(*graphic);
+	window.draw(*graphic);
 }
 
 Rect<float> Paddle::GetRect()
@@ -46,8 +48,7 @@ Rect<float> Paddle::GetRect()
 	return graphic->getGlobalBounds();
 }
 
-RectangleShape* Paddle::GetGraphic()
+unique_ptr<RectangleShape> Paddle::GetGraphic()
 {
-	RectangleShape* graphic = new RectangleShape(Vector2f(0, 0));
-	return graphic;
+	return make_unique<RectangleShape>(Vector2f(0, 0));
 }

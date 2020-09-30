@@ -7,7 +7,7 @@ namespace Game
 	class KeyboardController : public Controller
 	{
 	public:
-		KeyboardController(Paddle* paddle);
+		KeyboardController(Paddle& paddle);
 		void Update() override;
 	};
 }

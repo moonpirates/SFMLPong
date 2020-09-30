@@ -2,7 +2,6 @@
 
 using namespace Game;
 
-Controller::Controller(Paddle* paddle)
+Controller::Controller(Paddle& paddle) : paddle(paddle)
 {
-	this->paddle = paddle;
 }

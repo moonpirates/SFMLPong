@@ -4,16 +4,19 @@ using namespace Game;
 using namespace std;
 using namespace Utils;
 
-Ball::Ball(RenderWindow* window)
+Ball::Ball(RenderWindow& window) : window(window)
 {
-	this->window = window;
-	
 	speed = Constants::BALL_INITIAL_SPEED;
 	direction = Vector2f(1, -1);
 	graphic = GetGraphic();
 	graphic->setFillColor(Color::Red);
 
 	Reset();
+}
+
+Ball::~Ball()
+{
+	cout << "Destructed ball" << endl;
 }
 
 void Ball::Start()
@@ -69,7 +72,7 @@ void Ball::Update()
 	//	<< direction.x << ", " << direction.y << endl;
 
 	graphic->setPosition(position);
-	window->draw(*graphic);
+	window.draw(*graphic);
 }
 
 bool Ball::IsMoving()
@@ -87,10 +90,10 @@ void Ball::StepUpSpeed()
 	speed += Constants::BALL_SPEED_STEP_VALUE;
 }
 
-RectangleShape* Ball::GetGraphic()
+unique_ptr<RectangleShape> Ball::GetGraphic()
 {
-	RectangleShape* graphic = new RectangleShape(Vector2f(Constants::BALL_DIAMETER, Constants::BALL_DIAMETER));
-	return graphic;
+	Vector2f size = Vector2f(Constants::BALL_DIAMETER, Constants::BALL_DIAMETER);
+	return make_unique<RectangleShape>(size);
 }
 
 void Ball::AABBToRect(Rect<float>& intersectionRect)
@@ -123,5 +126,5 @@ void Ball::AABBToRect(Rect<float>& intersectionRect)
 	position -= offset;
 
 	graphic->setPosition(position);
-	window->draw(*graphic);
+	window.draw(*graphic);
 }

@@ -2,24 +2,13 @@
 
 using namespace Game;
 
-Pong::Pong(RenderWindow* window)
+Pong::Pong(RenderWindow& window) : window(window)
 {
-	this->window = window;
-
-	paddleLeft = new Paddle(Orientation::Left, window);
-	paddleRight = new Paddle(Orientation::Right, window);
-	ball = new Ball(window);
-	keyboardController = new KeyboardController(paddleRight);
-	aiController = new AIController(paddleLeft, ball);
-}
-
-Pong::~Pong()
-{
-	delete paddleLeft;
-	delete paddleRight;
-	delete ball;
-	delete keyboardController;
-	delete aiController;
+	paddleLeft = make_unique<Paddle>(Orientation::Left, window);
+	paddleRight = make_unique<Paddle>(Orientation::Right, window);
+	ball = make_unique<Ball>(window);
+	keyboardController = make_unique<KeyboardController>(*paddleRight);
+	aiController = make_unique<AIController>(*paddleLeft, *ball);
 }
 
 void Pong::Update()
@@ -47,7 +36,9 @@ void Pong::CheckForRoundStart()
 void Pong::HandleCollision()
 {
 	Rect<float> ballRect = ball->GetRect();
-	Rect<float> screenRect = Rect<float>(0, 0, Constants::SCREEN_RESOLUTION_WIDTH, Constants::SCREEN_RESOLUTION_HEIGHT);
+	float width = Constants::SCREEN_RESOLUTION_WIDTH;
+	float height = Constants::SCREEN_RESOLUTION_HEIGHT;
+	Rect<float> screenRect = Rect<float>(0, 0, width, height);
 
 	// Test for score
 	Paddle* passedPaddle = nullptr;
@@ -56,7 +47,7 @@ void Pong::HandleCollision()
 		ball->Reset();
 		//ball->Bounce(passedPaddle == paddleLeft ? Orientation::Left : Orientation::Right, screenRect);
 
-		if (passedPaddle == paddleLeft)
+		if (passedPaddle == paddleLeft.get())
 		{
 			cout << "Score for right." << endl;
 		}
@@ -72,7 +63,7 @@ void Pong::HandleCollision()
 	Paddle* hitPaddle = nullptr;
 	if (BallHitsPaddle(ballRect, hitPaddle))
 	{
-		ball->Bounce(hitPaddle == paddleLeft ? Orientation::Left : Orientation::Right, hitPaddle->GetRect());
+		ball->Bounce(hitPaddle == paddleLeft.get() ? Orientation::Left : Orientation::Right, hitPaddle->GetRect());
 		ball->StepUpSpeed();
 		cout << "Bounce on paddle" << endl;
 		return;
@@ -107,37 +98,37 @@ bool Pong::BallHitsFloorOrCeiling(Rect<float>& ballRect, Orientation& orientatio
 	return hit;
 }
 
-bool Pong::BallPassedPaddle(Rect<float>& ballRect, Paddle *&passedPaddle)
+bool Pong::BallPassedPaddle(Rect<float>& ballRect, Paddle*& passedPaddle)
 {
 	bool passed = false;
 
 	if (ballRect.left <= 0)
 	{
 		passed = true;
-		passedPaddle = paddleLeft;
+		passedPaddle = paddleLeft.get();
 	}
 	else if (ballRect.left + ballRect.width >= Constants::SCREEN_RESOLUTION_WIDTH)
 	{
 		passed = true;
-		passedPaddle = paddleRight;
+		passedPaddle = paddleRight.get();
 	}
 
 	return passed;
 }
 
-bool Pong::BallHitsPaddle(Rect<float>& ballRect, Paddle *&hitPaddle)
+bool Pong::BallHitsPaddle(Rect<float>& ballRect, Paddle*& hitPaddle)
 {
 	bool hit = false;
 
 	if (ballRect.intersects(paddleLeft->GetRect()))
 	{
 		hit = true;
-		hitPaddle = paddleLeft;
+		hitPaddle = paddleLeft.get();
 	}
 	else if (ballRect.intersects(paddleRight->GetRect()))
 	{
 		hit = true;
-		hitPaddle = paddleRight;
+		hitPaddle = paddleRight.get();
 	}
 
 	return hit;

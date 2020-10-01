@@ -7,10 +7,6 @@
 #include "Main/Pong.h"
 #include "Utils/Time.h"
 
-using namespace Game;
-using namespace std;
-using namespace sf;
-
 namespace Game
 {
 	class GameInstance
@@ -22,11 +18,11 @@ namespace Game
 		bool running;
 
 	private:
-		unique_ptr<RenderWindow> SetupWindow();
-		unique_ptr<Pong> SetupGame(RenderWindow& window);
+		std::unique_ptr<sf::RenderWindow> SetupWindow();
+		std::unique_ptr<Pong> SetupGame(sf::RenderWindow& window);
 		void Run();
-
-		unique_ptr<RenderWindow> window;
-		unique_ptr<Pong> pong;
+		
+		std::unique_ptr<sf::RenderWindow> window;
+		std::unique_ptr<Pong> pong;
 	};
 }

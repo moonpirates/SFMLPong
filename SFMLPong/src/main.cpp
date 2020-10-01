@@ -1,15 +1,12 @@
 #include <iostream>
 #include "Main/GameInstance.h"
 
-using namespace Game;
-
 int main()
 {
-	GameInstance gameInstance = GameInstance();
+	Game::GameInstance gameInstance = Game::GameInstance();
 
 	while (gameInstance.running)
 	{
-		
 	}
 
 	return 0;

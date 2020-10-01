@@ -1,6 +1,7 @@
 #include "AIController.h"
 
 using namespace Game;
+using namespace sf;
 
 AIController::AIController(Paddle& p, Ball& b) : ball(b), Controller(p)
 {

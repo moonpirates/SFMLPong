@@ -6,26 +6,23 @@
 #include "Constants/Constants.h"
 #include "Constants/Direction.h"
 #include "Constants/Orientation.h"
-#include "Systems/Updatable.h"
+#include "Utils/Systems/Updatable.h"
 #include "Utils/Time.h"
-
-using namespace std;
-using namespace sf;
 
 namespace Game
 {
-	class Paddle : public Updatable
+	class Paddle : public Utils::Updatable
 	{
 	public:
-		Paddle(Orientation orientation, RenderWindow& window);
+		explicit Paddle(Orientation orientation, sf::RenderWindow& window);
 		~Paddle();
 		void Move(Direction direction);
 		void Update();
-		Rect<float> GetRect();
+		sf::Rect<float> GetRect();
 
 	private:
-		RenderWindow& window;
-		unique_ptr<RectangleShape> graphic;
+		sf::RenderWindow& window;
+		std::unique_ptr<sf::RectangleShape> graphic;
 		Orientation orientation;
 		float x;
 		float y;
@@ -35,7 +32,7 @@ namespace Game
 		float velocity;
 		Direction currentDirection;
 
-		unique_ptr<RectangleShape> GetGraphic();
+		std::unique_ptr<sf::RectangleShape> GetGraphic();
 	};
 }
 

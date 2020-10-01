@@ -1,7 +1,7 @@
 #include "Paddle.h"
 
-using namespace std;
 using namespace Game;
+using namespace sf;
 
 Paddle::Paddle(Orientation orientation, RenderWindow& window) : orientation(orientation), window(window)
 {
@@ -20,7 +20,7 @@ Paddle::Paddle(Orientation orientation, RenderWindow& window) : orientation(orie
 
 Paddle::~Paddle()
 {
-	std::cout << "Destructed paddle" << endl;
+	std::cout << "Destructed paddle" << std::endl;
 }
 
 void Paddle::Move(Direction direction)
@@ -48,7 +48,7 @@ Rect<float> Paddle::GetRect()
 	return graphic->getGlobalBounds();
 }
 
-unique_ptr<RectangleShape> Paddle::GetGraphic()
+std::unique_ptr<RectangleShape> Paddle::GetGraphic()
 {
-	return make_unique<RectangleShape>(Vector2f(0, 0));
+	return std::make_unique<RectangleShape>(Vector2f(0, 0));
 }

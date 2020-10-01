@@ -187,7 +187,7 @@
     <ClInclude Include="src\Main\Pong.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="src\Utils\Time.h" />
-    <ClInclude Include="src\Systems\Updatable.h" />
+    <ClInclude Include="src\Utils\Systems\Updatable.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SFMLPong.rc" />

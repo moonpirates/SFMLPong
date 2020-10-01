@@ -1,8 +1,7 @@
 #include "Ball.h"
 
 using namespace Game;
-using namespace std;
-using namespace Utils;
+using namespace sf;
 
 Ball::Ball(RenderWindow& window) : window(window)
 {
@@ -16,7 +15,7 @@ Ball::Ball(RenderWindow& window) : window(window)
 
 Ball::~Ball()
 {
-	cout << "Destructed ball" << endl;
+	std::cout << "Destructed ball" << std::endl;
 }
 
 void Ball::Start()
@@ -41,7 +40,7 @@ void Ball::Reset()
 
 void Ball::Bounce(Orientation orientation, Rect<float> otherRect)
 {
-	cout << "------------------------------------------" << endl;
+	std::cout << "------------------------------------------" << std::endl;
 
 	Rect<float> intersectionRect;
 	GetRect().intersects(otherRect, intersectionRect);
@@ -50,17 +49,17 @@ void Ball::Bounce(Orientation orientation, Rect<float> otherRect)
 	{
 		float overlap = Constants::BALL_DIAMETER - intersectionRect.height;
 
-		cout << "hit top or botton, overlap: " << overlap << endl;
+		std::cout << "hit top or botton, overlap: " << overlap << std::endl;
 
 		direction = Vector2f(direction.x, -direction.y);
 	}
 	else
 	{
-		cout << "hit paddle" << endl;
+		std::cout << "hit paddle" << std::endl;
 		AABBToRect(intersectionRect);
 	}
 
-	cout << "POINK: " << direction.x << ", " << direction.y << endl;
+	std::cout << "POINK: " << direction.x << ", " << direction.y << std::endl;
 
 }
 
@@ -90,10 +89,10 @@ void Ball::StepUpSpeed()
 	speed += Constants::BALL_SPEED_STEP_VALUE;
 }
 
-unique_ptr<RectangleShape> Ball::GetGraphic()
+std::unique_ptr<RectangleShape> Ball::GetGraphic()
 {
 	Vector2f size = Vector2f(Constants::BALL_DIAMETER, Constants::BALL_DIAMETER);
-	return make_unique<RectangleShape>(size);
+	return std::make_unique<RectangleShape>(size);
 }
 
 void Ball::AABBToRect(Rect<float>& intersectionRect)
@@ -103,9 +102,9 @@ void Ball::AABBToRect(Rect<float>& intersectionRect)
 	if (intersectionRect.height > intersectionRect.width)
 	{
 		// intersected horizontally
-		cout << "hit left or right" << endl;
+		std::cout << "hit left or right" << std::endl;
 
-		offsetDir = Math::NormalizeVector(Math::FlattenVectorY(direction));
+		offsetDir = Utils::Math::NormalizeVector(Utils::Math::FlattenVectorY(direction));
 
 		offset = offsetDir * intersectionRect.width;
 
@@ -114,14 +113,14 @@ void Ball::AABBToRect(Rect<float>& intersectionRect)
 	else
 	{
 		// interrsected vertically
-		cout << "hit top or bottom" << endl;
-		offsetDir = Math::NormalizeVector(Math::FlattenVectorX(direction));
+		std::cout << "hit top or bottom" << std::endl;
+		offsetDir = Utils::Math::NormalizeVector(Utils::Math::FlattenVectorX(direction));
 		offset = offsetDir * intersectionRect.height;
 
 		direction = Vector2f(direction.x, -direction.y);
 	}
 
-	cout << "[AABB] moving in: " << offset.x << ", " << offset.y << " || direction: " << offsetDir.x << ", " << offsetDir.y << endl;
+	std::cout << "[AABB] moving in: " << offset.x << ", " << offset.y << " || direction: " << offsetDir.x << ", " << offsetDir.y << std::endl;
 
 	position -= offset;
 

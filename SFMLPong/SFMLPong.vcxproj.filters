@@ -83,13 +83,13 @@
     <ClInclude Include="src\Entities\Paddle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Systems\Updatable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Main\GameInstance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Main\Pong.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\Systems\Updatable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

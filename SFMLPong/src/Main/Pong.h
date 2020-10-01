@@ -2,37 +2,35 @@
 
 #include <SFML\Graphics.hpp>
 #include <iostream>
+
 #include "Constants/Constants.h"
 #include "Controllers/KeyboardController.h"
 #include "Controllers/AIController.h"
 #include "Entities/Ball.h"
 #include "Entities/Paddle.h"
-#include "Systems/Updatable.h"
-
-using namespace sf;
-using namespace std;
+#include "Utils/Systems/Updatable.h"
 
 namespace Game
 {
-	class Pong : public Updatable
+	class Pong : public Utils::Updatable
 	{
 	public:
-		Pong(RenderWindow& window);
+		explicit Pong(sf::RenderWindow& window);
 		void Update() override;
 
 	private:
-		RenderWindow& window;
-		unique_ptr<KeyboardController> keyboardController;
-		unique_ptr<AIController> aiController;
-		unique_ptr<Paddle> paddleLeft;
-		unique_ptr<Paddle> paddleRight;
-		unique_ptr<Ball> ball;
+		sf::RenderWindow& window;
+		std::unique_ptr<KeyboardController> keyboardController;
+		std::unique_ptr<AIController> aiController;
+		std::unique_ptr<Paddle> paddleLeft;
+		std::unique_ptr<Paddle> paddleRight;
+		std::unique_ptr<Ball> ball;
 
 		void CheckForRoundStart();
 		void HandleCollision();
-		bool BallHitsFloorOrCeiling(Rect<float>& ballRect, Orientation& orientation);
-		bool BallPassedPaddle(Rect<float>& ballRect, Paddle*& passedPaddle);
-		bool BallHitsPaddle(Rect<float>& ballRect, Paddle*& hitPaddle);
+		bool BallHitsFloorOrCeiling(sf::Rect<float>& ballRect, Orientation& orientation);
+		bool BallPassedPaddle(sf::Rect<float>& ballRect, Paddle*& passedPaddle);
+		bool BallHitsPaddle(sf::Rect<float>& ballRect, Paddle*& hitPaddle);
 	};
 }
 

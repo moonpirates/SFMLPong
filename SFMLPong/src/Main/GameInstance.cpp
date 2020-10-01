@@ -1,5 +1,8 @@
 #include "GameInstance.h"
 
+using namespace Game;
+using namespace sf;
+
 GameInstance::GameInstance()
 {
 	running = true;
@@ -13,16 +16,16 @@ GameInstance::~GameInstance()
 {
 }
 
-unique_ptr<RenderWindow> GameInstance::SetupWindow()
+std::unique_ptr<RenderWindow> GameInstance::SetupWindow()
 {
 	VideoMode videoMode = VideoMode(Constants::SCREEN_RESOLUTION_WIDTH, Constants::SCREEN_RESOLUTION_HEIGHT);
 
-	return make_unique<RenderWindow>(videoMode, "SFML Pong");
+	return std::make_unique<RenderWindow>(videoMode, "SFML Pong");
 }
 
-unique_ptr<Pong> GameInstance::SetupGame(RenderWindow& window)
+std::unique_ptr<Pong> GameInstance::SetupGame(RenderWindow& window)
 {
-	return make_unique<Pong>(window);
+	return std::make_unique<Pong>(window);
 }
 
 void GameInstance::Run()

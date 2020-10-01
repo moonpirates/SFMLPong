@@ -8,7 +8,7 @@ namespace Game
 	class AIController : public Controller
 	{
 	public:
-		AIController(Paddle& paddle, Ball& ball);
+		explicit AIController(Paddle& paddle, Ball& ball);
 		void Update() override;
 	private:
 		Ball& ball;

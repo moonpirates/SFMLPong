@@ -1,14 +1,14 @@
 #pragma once
 
 #include "Entities/Paddle.h"
-#include "Systems/Updatable.h"
+#include "Utils/Systems/Updatable.h"
 
 namespace Game
 {
-	class Controller : public Updatable
+	class Controller : public Utils::Updatable
 	{
 	public:
-		Controller(Paddle& paddle);
+		explicit Controller(Paddle& paddle);
 	protected:
 		Paddle& paddle;
 	};

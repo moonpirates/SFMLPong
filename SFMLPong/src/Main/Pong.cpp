@@ -1,14 +1,15 @@
 #include "Pong.h"
 
 using namespace Game;
+using namespace sf;
 
 Pong::Pong(RenderWindow& window) : window(window)
 {
-	paddleLeft = make_unique<Paddle>(Orientation::Left, window);
-	paddleRight = make_unique<Paddle>(Orientation::Right, window);
-	ball = make_unique<Ball>(window);
-	keyboardController = make_unique<KeyboardController>(*paddleRight);
-	aiController = make_unique<AIController>(*paddleLeft, *ball);
+	paddleLeft = std::make_unique<Paddle>(Orientation::Left, window);
+	paddleRight = std::make_unique<Paddle>(Orientation::Right, window);
+	ball = std::make_unique<Ball>(window);
+	keyboardController = std::make_unique<KeyboardController>(*paddleRight);
+	aiController = std::make_unique<AIController>(*paddleLeft, *ball);
 }
 
 void Pong::Update()
@@ -28,7 +29,7 @@ void Pong::CheckForRoundStart()
 {
 	if (Keyboard::isKeyPressed(Keyboard::Space))
 	{
-		cout << "Start" << endl;
+		std::cout << "Start" << std::endl;
 		ball->Start();
 	}
 }
@@ -49,11 +50,11 @@ void Pong::HandleCollision()
 
 		if (passedPaddle == paddleLeft.get())
 		{
-			cout << "Score for right." << endl;
+			std::cout << "Score for right." << std::endl;
 		}
 		else
 		{
-			cout << "Score for left." << endl;
+			std::cout << "Score for left." << std::endl;
 		}
 
 		return;
@@ -65,7 +66,7 @@ void Pong::HandleCollision()
 	{
 		ball->Bounce(hitPaddle == paddleLeft.get() ? Orientation::Left : Orientation::Right, hitPaddle->GetRect());
 		ball->StepUpSpeed();
-		cout << "Bounce on paddle" << endl;
+		std::cout << "Bounce on paddle" << std::endl;
 		return;
 	}
 	
@@ -74,7 +75,7 @@ void Pong::HandleCollision()
 	if (BallHitsFloorOrCeiling(ballRect, orientation))
 	{
 		ball->Bounce(orientation, screenRect);
-		cout << (orientation == Orientation::Top ? "ceil" : "floor") << endl;
+		std::cout << (orientation == Orientation::Top ? "ceil" : "floor") << std::endl;
 
 		return;
 	}

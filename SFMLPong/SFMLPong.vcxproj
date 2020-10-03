@@ -161,6 +161,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Utils\Events\Dispatcher.cpp" />
+    <ClCompile Include="src\Utils\Events\Event.cpp" />
     <ClCompile Include="src\Controllers\AIController.cpp" />
     <ClCompile Include="src\Entities\Ball.cpp" />
     <ClCompile Include="src\Constants\Constants.cpp" />
@@ -174,6 +176,8 @@
     <ClCompile Include="src\Utils\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Utils\Events\Dispatcher.h" />
+    <ClInclude Include="src\Utils\Events\Event.h" />
     <ClInclude Include="src\Controllers\AIController.h" />
     <ClInclude Include="src\Entities\Ball.h" />
     <ClInclude Include="src\Constants\Constants.h" />

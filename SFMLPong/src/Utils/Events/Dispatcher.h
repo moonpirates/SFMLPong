@@ -2,65 +2,84 @@
 
 #include <iostream>
 #include <map>
+#include <vector>
 #include <functional>
 #include <memory>
 #include <typeinfo>
 #include <typeindex>
 
+#include <Utils/Events/Typedefs.h>
 #include <Utils/Events/Event.h>
+#include <Utils/Events/SubscriptionInfo.h>
 
 namespace Utils
 {
 	class Dispatcher
 	{
-		typedef std::multimap<std::type_index, std::function<void(Event)>*> SubscriptionMap;
+		typedef std::pair<Utils::EventCallbackDelegate, int*> CallbackInfo;
+		typedef std::vector<CallbackInfo> CallbackPairs;
+		typedef std::unordered_map<std::type_index, CallbackPairs*> SubscriptionMap;
 
 	public:
-		Dispatcher() : subscriptionMap(std::make_unique<SubscriptionMap>())
-		{
-		}
+		Dispatcher() : subscriptionMap(std::make_unique<SubscriptionMap>()) {}
 
 		template<typename T>
-		void Subscribe(std::function<void(Event)> callback);
-
+		void Subscribe(EventCallbackDelegate callback, int* context);
 		template<typename T>
-		void Unsubscribe(std::function<void(Event)> callback);
-		
+		void Unsubscribe(int* context);
 		void Invoke(Event e);
 	
 	private:
 		std::unique_ptr<SubscriptionMap> subscriptionMap;
-		
-		template<typename T, typename... U>
-		size_t getAddress(std::function<T(U...)> f) {
-			typedef T(fnType)(U...);
-			fnType** fnPointer = f.template target<fnType*>();
-			return (size_t)*fnPointer;
+
+		CallbackPairs* TryGetCallbackPairs(const std::type_info& typeInfo)
+		{
+			return TryGetCallbackPairs(std::type_index(typeInfo));
+		}
+
+		CallbackPairs* TryGetCallbackPairs(const std::type_index typeIndex)
+		{
+			SubscriptionMap::iterator it = subscriptionMap->find(typeIndex);
+			return it != subscriptionMap->end() ? it->second : nullptr;
 		}
 	};
 
 	template<typename T>
-	inline void Dispatcher::Subscribe(std::function<void(Event)> callback)
+	inline void Dispatcher::Subscribe(const EventCallbackDelegate callback, int* context)
 	{
-		(*subscriptionMap).emplace(std::type_index(typeid(T)), &callback);
+		const std::type_index typeIndex = std::type_index(typeid(T));
+		CallbackPairs* callbackPairs = TryGetCallbackPairs(typeIndex);
 
-		std::cout << "[Sub] Size is now: " << (*subscriptionMap).size() << std::endl;
+		if (callbackPairs == nullptr)
+		{
+			std::cout << "Event is new!" << std::endl;
+			callbackPairs = new CallbackPairs();
+			subscriptionMap->emplace(typeIndex, callbackPairs);
+		}
+
+		callbackPairs->push_back(CallbackInfo(callback, context));
+
+		std::cout << "[Sub] Size is now: " << subscriptionMap->size() << ", this info size: " << callbackPairs->size() << std::endl;
 	}
 
 	template<typename T>
-	inline void Dispatcher::Unsubscribe(std::function<void(Event)> callback)
+	inline void Dispatcher::Unsubscribe(int* context)
 	{
 		std::cout << "[Un BEFORE] Size is now: " << (*subscriptionMap).size() << std::endl;
+		
+		CallbackPairs* callbackPairs = TryGetCallbackPairs(typeid(T));
 
-		//?std::cout "Callback: " << (&callback) << std::endl;
-
-		for (SubscriptionMap::iterator it = (*subscriptionMap).begin(); it != (*subscriptionMap).end();)
+		if (callbackPairs == nullptr)
 		{
-			std::cout << (&callback) << "\t iterator: " << &(it->second) << std::endl;
+			return;
+		}
 
-			if (it->first == std::type_index(typeid(T)) && &callback == &(it->second))
+		for (CallbackPairs::iterator it = callbackPairs->begin(); it != callbackPairs->end();)
+		{
+			if (it->second == context)
 			{
-				(*subscriptionMap).erase(it++);
+				std::cout << "\tremoving" << std::endl;
+				it = callbackPairs->erase(it);
 			}
 			else
 			{
@@ -73,14 +92,20 @@ namespace Utils
 
 	inline void Dispatcher::Invoke(Event e)
 	{
-		for (SubscriptionMap::iterator it = (*subscriptionMap).begin(); it != (*subscriptionMap).end(); it++)
+		std::cout << "Calling callback for event: " << typeid(e).name() << std::endl;
+
+		// Find whether the event is already registered in the map
+		CallbackPairs* callbackPairs = TryGetCallbackPairs(typeid(e));
+
+		if (callbackPairs == nullptr)
 		{
-			if (it->first == std::type_index(typeid(e)))
-			{
-				std::cout << "Calling callback for event: " << typeid(e).name() << std::endl;
-				//std::function<void(Event)> f = it->second;
-				
-			}
+			return;
+		}
+
+		for (CallbackPairs::iterator infoIterator = callbackPairs->begin(); infoIterator != callbackPairs->end(); infoIterator++)
+		{
+			Utils::EventCallbackDelegate callback = infoIterator->first;
+			callback(e);
 		}
 	}
 }

@@ -185,6 +185,8 @@
     <ClInclude Include="src\Constants\Direction.h" />
     <ClInclude Include="src\Main\GameInstance.h" />
     <ClInclude Include="src\Controllers\KeyboardController.h" />
+    <ClInclude Include="src\Utils\Events\SubscriptionInfo.h" />
+    <ClInclude Include="src\Utils\Events\Typedefs.h" />
     <ClInclude Include="src\Utils\Math.h" />
     <ClInclude Include="src\Constants\Orientation.h" />
     <ClInclude Include="src\Entities\Paddle.h" />

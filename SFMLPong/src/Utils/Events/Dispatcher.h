@@ -74,17 +74,29 @@ namespace Utils
 			return;
 		}
 
+		// Remove all callback pairs which share the same context
 		for (CallbackPairs::iterator it = callbackPairs->begin(); it != callbackPairs->end();)
 		{
 			if (it->second == context)
 			{
-				std::cout << "\tremoving" << std::endl;
+				std::cout << "\tRemoving" << std::endl;
+				CallbackInfo* info = &*it;
 				it = callbackPairs->erase(it);
 			}
 			else
 			{
 				it++;
 			}
+		}
+
+		// If there are no callbackpairs, we can remove the entire event type, and free memory.
+		if (callbackPairs->size() == 0)
+		{
+			std::cout << "Clearing " << typeid(T).name() << " as it's no longer used" << std::endl;
+
+			SubscriptionMap::iterator it = subscriptionMap->find(typeid(T));
+			subscriptionMap->erase(it);
+			delete(callbackPairs);
 		}
 
 		std::cout << "[Un AFTER] Size is now: " << (*subscriptionMap).size() << std::endl;

@@ -42,10 +42,10 @@
     <ClCompile Include="src\Entities\Paddle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Main\GameInstance.cpp">
+    <ClCompile Include="src\Core\GameInstance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Main\Pong.cpp">
+    <ClCompile Include="src\Core\Pong.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Utils\Events\Event.cpp">
@@ -89,10 +89,10 @@
     <ClInclude Include="src\Entities\Paddle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Main\GameInstance.h">
+    <ClInclude Include="src\Core\GameInstance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Main\Pong.h">
+    <ClInclude Include="src\Core\Pong.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Utils\Systems\Updatable.h">

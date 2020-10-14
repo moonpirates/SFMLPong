@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Constants/Constants.h"
-#include "Main/Pong.h"
+#include "Core/Pong.h"
 #include "Utils/Time.h"
 
 namespace Game

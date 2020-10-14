@@ -167,12 +167,12 @@
     <ClCompile Include="src\Entities\Ball.cpp" />
     <ClCompile Include="src\Constants\Constants.cpp" />
     <ClCompile Include="src\Controllers\Controller.cpp" />
-    <ClCompile Include="src\Main\GameInstance.cpp" />
+    <ClCompile Include="src\Core\GameInstance.cpp" />
     <ClCompile Include="src\Controllers\KeyboardController.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Utils\Math.cpp" />
     <ClCompile Include="src\Entities\Paddle.cpp" />
-    <ClCompile Include="src\Main\Pong.cpp" />
+    <ClCompile Include="src\Core\Pong.cpp" />
     <ClCompile Include="src\Utils\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -183,14 +183,14 @@
     <ClInclude Include="src\Constants\Constants.h" />
     <ClInclude Include="src\Controllers\Controller.h" />
     <ClInclude Include="src\Constants\Direction.h" />
-    <ClInclude Include="src\Main\GameInstance.h" />
+    <ClInclude Include="src\Core\GameInstance.h" />
     <ClInclude Include="src\Controllers\KeyboardController.h" />
     <ClInclude Include="src\Utils\Events\SubscriptionInfo.h" />
     <ClInclude Include="src\Utils\Events\Typedefs.h" />
     <ClInclude Include="src\Utils\Math.h" />
     <ClInclude Include="src\Constants\Orientation.h" />
     <ClInclude Include="src\Entities\Paddle.h" />
-    <ClInclude Include="src\Main\Pong.h" />
+    <ClInclude Include="src\Core\Pong.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="src\Utils\Time.h" />
     <ClInclude Include="src\Utils\Systems\Updatable.h" />

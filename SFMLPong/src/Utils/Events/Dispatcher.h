@@ -18,7 +18,7 @@ namespace Utils
 {
 	class Dispatcher
 	{
-		typedef std::pair<Utils::EventCallbackDelegate, void*> CallbackInfo;
+		typedef std::pair<std::function<void(std::any)>, void*> CallbackInfo;
 		typedef std::vector<CallbackInfo> CallbackPairs;
 		typedef std::unordered_map<std::type_index, CallbackPairs*> SubscriptionMap;
 
@@ -26,12 +26,15 @@ namespace Utils
 		Dispatcher() : subscriptionMap(std::make_unique<SubscriptionMap>()) {}
 
 		template<typename T>
-		void Subscribe(EventCallbackDelegate callback, void* context);
+		void Subscribe(const std::function<void(T)> callback, void* context);
 		template<typename T>
 		void Unsubscribe(void* context);
-		void Invoke(Event e);
+
+		template<typename T>
+		void Invoke(T e);
 	
 	private:
+
 		std::unique_ptr<SubscriptionMap> subscriptionMap;
 
 		CallbackPairs* TryGetCallbackPairs(const std::type_info& typeInfo)
@@ -47,8 +50,10 @@ namespace Utils
 	};
 
 	template<typename T>
-	inline void Dispatcher::Subscribe(const EventCallbackDelegate callback, void* context)
+	inline void Dispatcher::Subscribe(const std::function<void(T)> callback, void* context)
 	{
+		static_assert(std::is_base_of<Utils::Event, T>::value, "Type is restricted to event types only");
+
 		const std::type_index typeIndex = std::type_index(typeid(T));
 		CallbackPairs* callbackPairs = TryGetCallbackPairs(typeIndex);
 
@@ -59,7 +64,13 @@ namespace Utils
 			subscriptionMap->emplace(typeIndex, callbackPairs);
 		}
 
-		callbackPairs->push_back(CallbackInfo(callback, context));
+		std::function<void(std::any)> function = [callback](std::any e)
+		{ 
+			T t = std::any_cast<T>(e);
+			callback(t); 
+		};
+
+		callbackPairs->push_back(CallbackInfo(function, context));
 
 		std::cout << "[Sub] Size is now: " << subscriptionMap->size() << ", this info size: " << callbackPairs->size() << std::endl;
 	}
@@ -67,7 +78,9 @@ namespace Utils
 	template<typename T>
 	inline void Dispatcher::Unsubscribe(void* context)
 	{
-		std::cout << "[Un BEFORE] Size is now: " << (*subscriptionMap).size() << std::endl;
+		static_assert(std::is_base_of<Utils::Event, T>::value, "Type is restricted to event types only");
+
+		std::cout << "[Un BEFORE] Size is now: " << subscriptionMap->size() << std::endl;
 		
 		CallbackPairs* callbackPairs = TryGetCallbackPairs(typeid(T));
 
@@ -104,8 +117,11 @@ namespace Utils
 		std::cout << "[Un AFTER] Size is now: " << (*subscriptionMap).size() << std::endl;
 	}
 
-	inline void Dispatcher::Invoke(Event e)
+	template<typename T>
+	inline void Dispatcher::Invoke(T e)
 	{
+		static_assert(std::is_base_of<Utils::Event, T>::value, "Type is restricted to event types only");
+
 		std::cout << "Calling callback for event: " << typeid(e).name() << std::endl;
 
 		// Find whether the event is already registered in the map

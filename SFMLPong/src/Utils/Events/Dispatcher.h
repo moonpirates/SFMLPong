@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <any>
 #include <map>
 #include <unordered_map>
 #include <vector>
@@ -17,7 +18,7 @@ namespace Utils
 {
 	class Dispatcher
 	{
-		typedef std::pair<Utils::EventCallbackDelegate, int*> CallbackInfo;
+		typedef std::pair<Utils::EventCallbackDelegate, void*> CallbackInfo;
 		typedef std::vector<CallbackInfo> CallbackPairs;
 		typedef std::unordered_map<std::type_index, CallbackPairs*> SubscriptionMap;
 
@@ -25,9 +26,9 @@ namespace Utils
 		Dispatcher() : subscriptionMap(std::make_unique<SubscriptionMap>()) {}
 
 		template<typename T>
-		void Subscribe(EventCallbackDelegate callback, int* context);
+		void Subscribe(EventCallbackDelegate callback, void* context);
 		template<typename T>
-		void Unsubscribe(int* context);
+		void Unsubscribe(void* context);
 		void Invoke(Event e);
 	
 	private:
@@ -46,7 +47,7 @@ namespace Utils
 	};
 
 	template<typename T>
-	inline void Dispatcher::Subscribe(const EventCallbackDelegate callback, int* context)
+	inline void Dispatcher::Subscribe(const EventCallbackDelegate callback, void* context)
 	{
 		const std::type_index typeIndex = std::type_index(typeid(T));
 		CallbackPairs* callbackPairs = TryGetCallbackPairs(typeIndex);
@@ -64,7 +65,7 @@ namespace Utils
 	}
 
 	template<typename T>
-	inline void Dispatcher::Unsubscribe(int* context)
+	inline void Dispatcher::Unsubscribe(void* context)
 	{
 		std::cout << "[Un BEFORE] Size is now: " << (*subscriptionMap).size() << std::endl;
 		

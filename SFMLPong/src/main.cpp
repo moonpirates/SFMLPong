@@ -21,25 +21,23 @@ int main()
 	int* context = new int();
 	int* context2 = new int();
 
-	dispatcher.Subscribe<Utils::Event>(Henk, context);
-	dispatcher.Subscribe<Utils::Event>(Henk2, context);
+	std::string* context3 = new std::string("honk");
+
+	std::any* any = new std::any();
+
+	dispatcher.Subscribe<Utils::Event>(Henk, context3);
+	dispatcher.Subscribe<Utils::Event>(Henk2, context3);
 	dispatcher.Invoke(Utils::Event("Foo"));
-	dispatcher.Unsubscribe<Utils::Event>(context);
+	dispatcher.Unsubscribe<Utils::Event>(context3);
 
 	std::function<void(Utils::Event)> f1 = Henk;
 	std::function<void(Utils::Event)> f2 = Henk2;
 
-	//std::cout << "Henk: " << *(long*)(char*)&Henk << std::endl;
-	//std::cout << (&f1 == &Henk) << std::endl;
-	std::cout << (&f1 == &f1) << std::endl;
-	//std::cout << (&f1 == &f2) << std::endl;
-	
-	
-	Game::GameInstance gameInstance = Game::GameInstance();
+	//Game::GameInstance gameInstance = Game::GameInstance();
 
-	while (gameInstance.running)
-	{
-	}
+	//while (gameInstance.running)
+	//{
+	//}
 	
 
 	return 0;

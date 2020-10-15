@@ -18,20 +18,12 @@ void Henk2(Utils::Event e)
 int main()
 {
 	Utils::Dispatcher dispatcher = Utils::Dispatcher();
-	int* context = new int();
-	int* context2 = new int();
+	std::string* context = new std::string("random context");
 
-	std::string* context3 = new std::string("honk");
-
-	std::any* any = new std::any();
-
-	dispatcher.Subscribe<Utils::Event>(Henk, context3);
-	dispatcher.Subscribe<Utils::Event>(Henk2, context3);
+	dispatcher.Subscribe<Utils::Event>(Henk, context);
+	dispatcher.Subscribe<Utils::Event>(Henk2, context);
 	dispatcher.Invoke(Utils::Event("Foo"));
-	dispatcher.Unsubscribe<Utils::Event>(context3);
-
-	std::function<void(Utils::Event)> f1 = Henk;
-	std::function<void(Utils::Event)> f2 = Henk2;
+	dispatcher.Unsubscribe<Utils::Event>(context);
 
 	//Game::GameInstance gameInstance = Game::GameInstance();
 

@@ -10,9 +10,7 @@
 #include <typeinfo>
 #include <typeindex>
 
-#include <Utils/Events/Typedefs.h>
 #include <Utils/Events/Event.h>
-#include <Utils/Events/SubscriptionInfo.h>
 
 namespace Utils
 {
@@ -134,7 +132,7 @@ namespace Utils
 
 		for (CallbackPairs::iterator infoIterator = callbackPairs->begin(); infoIterator != callbackPairs->end(); infoIterator++)
 		{
-			Utils::EventCallbackDelegate callback = infoIterator->first;
+			std::function<void(std::any)> callback = infoIterator->first;
 			callback(e);
 		}
 	}

@@ -48,9 +48,6 @@
     <ClCompile Include="src\Core\Pong.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Utils\Events\Event.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Utils\Events\Dispatcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -104,10 +101,7 @@
     <ClInclude Include="src\Utils\Events\Dispatcher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Utils\Events\SubscriptionInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Utils\Events\Typedefs.h">
+    <ClInclude Include="src\Events\KeyDownEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

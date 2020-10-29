@@ -4,12 +4,10 @@
 
 namespace Utils
 {
+	/// <summary>
+	/// Class intended to form a base for all events.
+	/// </summary>
 	class Event
 	{
-
-	public:
-		Event(std::string name);
-
-		std::string name;
 	};
 }

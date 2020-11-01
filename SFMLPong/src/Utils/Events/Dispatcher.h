@@ -84,6 +84,7 @@ namespace Utils
 
 		if (callbackPairs == nullptr)
 		{
+			std::cout << "Was unable to unsubscribe, could not find subscription for '" << typeid(T).name() << "' with context: '" << context << std::endl;
 			return;
 		}
 

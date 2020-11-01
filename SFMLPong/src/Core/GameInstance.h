@@ -12,17 +12,19 @@ namespace Game
 	class GameInstance
 	{
 	public:
-		GameInstance();
-		~GameInstance();
-		
 		bool running;
 
+		GameInstance();
+		~GameInstance();
+
 	private:
+		std::unique_ptr<sf::RenderWindow> window;
+		std::unique_ptr<Pong> pong;
+
 		std::unique_ptr<sf::RenderWindow> SetupWindow();
 		std::unique_ptr<Pong> SetupGame(sf::RenderWindow& window);
 		void Run();
-		
-		std::unique_ptr<sf::RenderWindow> window;
-		std::unique_ptr<Pong> pong;
+		void HandleTime(sf::Clock& clock);
+		void HandleWindowEvents();
 	};
 }

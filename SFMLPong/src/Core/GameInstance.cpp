@@ -1,4 +1,5 @@
 #include "GameInstance.h"
+#include <Utils\Events\GlobalEvents.h>
 
 using namespace Game;
 using namespace sf;
@@ -34,17 +35,8 @@ void GameInstance::Run()
 
 	while (window->isOpen())
 	{
-		Utils::Time::DeltaTime = clock.getElapsedTime().asSeconds();
-		clock.restart();
-
-		Event event;
-		while (window->pollEvent(event))
-		{
-			if (event.type == Event::Closed)
-			{
-				window->close();
-			}
-		}
+		HandleTime(clock);
+		HandleWindowEvents();
 
 		window->clear();
 		pong->Update();
@@ -52,4 +44,34 @@ void GameInstance::Run()
 	}
 
 	running = false;
+}
+
+void GameInstance::HandleTime(Clock& clock)
+{
+	Utils::Time::DeltaTime = clock.getElapsedTime().asSeconds();
+	clock.restart();
+}
+
+void GameInstance::HandleWindowEvents()
+{
+	Event event;
+	while (window->pollEvent(event))
+	{
+
+		switch (event.type)
+		{
+
+		case Event::Closed:
+			window->close();
+			break;
+		
+		case Event::KeyPressed:
+			Utils::GlobalEvents::Invoke(KeyPressedEvent(event.key.code));
+			break;
+
+		case Event::KeyReleased:
+			Utils::GlobalEvents::Invoke(KeyPressedEvent(event.key.code));
+			break;
+		}
+	}
 }

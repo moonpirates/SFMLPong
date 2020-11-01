@@ -3,12 +3,15 @@
 #include <SFML\Graphics.hpp>
 #include <iostream>
 
-#include "Constants/Constants.h"
-#include "Controllers/KeyboardController.h"
-#include "Controllers/AIController.h"
-#include "Entities/Ball.h"
-#include "Entities/Paddle.h"
-#include "Utils/Systems/Updatable.h"
+#include <Events/KeyPressedEvent.h>
+#include <Constants/Constants.h>
+#include <Controllers/KeyboardController.h>
+#include <Controllers/AIController.h>
+#include <Entities/Ball.h>
+#include <Entities/Paddle.h>
+#include <Utils/Systems/Updatable.h>
+#include <Utils/Events/GlobalEvents.h>
+
 
 namespace Game
 {
@@ -31,6 +34,7 @@ namespace Game
 		bool BallHitsFloorOrCeiling(sf::Rect<float>& ballRect, Orientation& orientation);
 		bool BallPassedPaddle(sf::Rect<float>& ballRect, Paddle*& passedPaddle);
 		bool BallHitsPaddle(sf::Rect<float>& ballRect, Paddle*& hitPaddle);
+		void OnKeyPressedEvent(KeyPressedEvent keyPressedEvent);
 	};
 }
 

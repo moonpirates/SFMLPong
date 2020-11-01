@@ -10,6 +10,20 @@ Pong::Pong(RenderWindow& window) : window(window)
 	ball = std::make_unique<Ball>(window);
 	keyboardController = std::make_unique<KeyboardController>(*paddleRight);
 	aiController = std::make_unique<AIController>(*paddleLeft, *ball);
+
+	//std::function<void(Pong*, KeyPressedEvent)> callback = OnKeyPressedEvent;
+
+	std::function<void(KeyPressedEvent)> callback = [this](KeyPressedEvent e)
+	{
+		return OnKeyPressedEvent(e);
+	};
+
+	Utils::GlobalEvents::Subscribe<KeyPressedEvent>(callback, this);
+}
+
+void Pong::OnKeyPressedEvent(KeyPressedEvent keyPressedEvent)
+{
+
 }
 
 void Pong::Update()
@@ -134,3 +148,8 @@ bool Pong::BallHitsPaddle(Rect<float>& ballRect, Paddle*& hitPaddle)
 
 	return hit;
 }
+
+//void Pong::OnKeyPressedEvent(KeyPressedEvent keyPressedEvent)
+//{
+//
+//}

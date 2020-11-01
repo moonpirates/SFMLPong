@@ -175,7 +175,8 @@
     <ClCompile Include="src\Utils\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Events\KeyDownEvent.h" />
+    <ClInclude Include="src\Events\KeyPressedEvent.h" />
+    <ClInclude Include="src\Events\KeyReleasedEvent.h" />
     <ClInclude Include="src\Utils\Events\Dispatcher.h" />
     <ClInclude Include="src\Utils\Events\Event.h" />
     <ClInclude Include="src\Controllers\AIController.h" />
@@ -185,6 +186,7 @@
     <ClInclude Include="src\Constants\Direction.h" />
     <ClInclude Include="src\Core\GameInstance.h" />
     <ClInclude Include="src\Controllers\KeyboardController.h" />
+    <ClInclude Include="src\Utils\Events\GlobalEvents.h" />
     <ClInclude Include="src\Utils\Math.h" />
     <ClInclude Include="src\Constants\Orientation.h" />
     <ClInclude Include="src\Entities\Paddle.h" />

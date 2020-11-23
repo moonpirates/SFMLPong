@@ -3,14 +3,15 @@
 #include <SFML\Graphics.hpp>
 #include <iostream>
 
-#include <Events/KeyPressedEvent.h>
+#include <Utils/Systems/Updatable.h>
+#include <Utils/Events/GlobalEvents.h>
+
 #include <Constants/Constants.h>
 #include <Controllers/KeyboardController.h>
 #include <Controllers/AIController.h>
 #include <Entities/Ball.h>
 #include <Entities/Paddle.h>
-#include <Utils/Systems/Updatable.h>
-#include <Utils/Events/GlobalEvents.h>
+#include <Events/KeyPressedEvent.h>
 
 
 namespace Game
@@ -18,7 +19,8 @@ namespace Game
 	class Pong : public Utils::Updatable
 	{
 	public:
-		explicit Pong(sf::RenderWindow& window);
+		Pong(sf::RenderWindow& window);
+		~Pong();
 		void Update() override;
 
 	private:
@@ -29,7 +31,6 @@ namespace Game
 		std::unique_ptr<Paddle> paddleRight;
 		std::unique_ptr<Ball> ball;
 
-		void CheckForRoundStart();
 		void HandleCollision();
 		bool BallHitsFloorOrCeiling(sf::Rect<float>& ballRect, Orientation& orientation);
 		bool BallPassedPaddle(sf::Rect<float>& ballRect, Paddle*& passedPaddle);

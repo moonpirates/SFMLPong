@@ -11,25 +11,25 @@ Pong::Pong(RenderWindow& window) : window(window)
 	keyboardController = std::make_unique<KeyboardController>(*paddleRight);
 	aiController = std::make_unique<AIController>(*paddleLeft, *ball);
 
-	//std::function<void(Pong*, KeyPressedEvent)> callback = OnKeyPressedEvent;
+	Utils::GlobalEvents::Subscribe<KeyPressedEvent>([this](KeyPressedEvent e) { return OnKeyPressedEvent(e); }, this);
+}
 
-	std::function<void(KeyPressedEvent)> callback = [this](KeyPressedEvent e)
-	{
-		return OnKeyPressedEvent(e);
-	};
-
-	Utils::GlobalEvents::Subscribe<KeyPressedEvent>(callback, this);
+Pong::~Pong()
+{
+	Utils::GlobalEvents::Unsubscribe<KeyPressedEvent>(this);
 }
 
 void Pong::OnKeyPressedEvent(KeyPressedEvent keyPressedEvent)
 {
-
+	if (keyPressedEvent.Key == sf::Keyboard::Space)
+	{
+		std::cout << "Start" << std::endl;
+		ball->Start();
+	}
 }
 
 void Pong::Update()
 {
-	CheckForRoundStart();
-	
 	keyboardController->Update();
 	aiController->Update();
 	ball->Update();
@@ -37,15 +37,6 @@ void Pong::Update()
 	paddleRight->Update();
 
 	HandleCollision();
-}
-
-void Pong::CheckForRoundStart()
-{
-	if (Keyboard::isKeyPressed(Keyboard::Space))
-	{
-		std::cout << "Start" << std::endl;
-		ball->Start();
-	}
 }
 
 void Pong::HandleCollision()
@@ -148,8 +139,3 @@ bool Pong::BallHitsPaddle(Rect<float>& ballRect, Paddle*& hitPaddle)
 
 	return hit;
 }
-
-//void Pong::OnKeyPressedEvent(KeyPressedEvent keyPressedEvent)
-//{
-//
-//}

@@ -1,5 +1,4 @@
 #include "GameInstance.h"
-#include <Utils\Events\GlobalEvents.h>
 
 using namespace Game;
 using namespace sf;
@@ -57,10 +56,8 @@ void GameInstance::HandleWindowEvents()
 	Event event;
 	while (window->pollEvent(event))
 	{
-
 		switch (event.type)
 		{
-
 		case Event::Closed:
 			window->close();
 			break;
@@ -70,7 +67,7 @@ void GameInstance::HandleWindowEvents()
 			break;
 
 		case Event::KeyReleased:
-			Utils::GlobalEvents::Invoke(KeyPressedEvent(event.key.code));
+			Utils::GlobalEvents::Invoke(KeyReleasedEvent(event.key.code));
 			break;
 		}
 	}

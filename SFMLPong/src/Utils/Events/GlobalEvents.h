@@ -16,12 +16,6 @@ namespace Utils
 			GetInstance().Subscribe<T>(callback, context);
 		}
 
-		template<typename U, typename T>
-		static void Subscriber(const std::function<void(U*, T)> callback, void* context)
-		{
-			GetInstance().Subscribe<T>(callback, context);
-		}
-
 		template<typename T>
 		static void Unsubscribe(void* context)
 		{

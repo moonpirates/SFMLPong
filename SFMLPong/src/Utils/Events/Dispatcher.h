@@ -48,7 +48,7 @@ namespace Utils
 	};
 
 	template<typename T>
-	inline void Dispatcher::Subscribe(const std::function<void(T)> callback, void* context)
+	void Dispatcher::Subscribe(const std::function<void(T)> callback, void* context)
 	{
 		static_assert(std::is_base_of<Utils::Event, T>::value, "Type is restricted to event types only");
 
@@ -74,7 +74,7 @@ namespace Utils
 	}
 
 	template<typename T>
-	inline void Dispatcher::Unsubscribe(void* context)
+	void Dispatcher::Unsubscribe(void* context)
 	{
 		static_assert(std::is_base_of<Utils::Event, T>::value, "Type is restricted to event types only");
 
@@ -117,7 +117,7 @@ namespace Utils
 	}
 
 	template<typename T>
-	inline void Dispatcher::Invoke(T e)
+	void Dispatcher::Invoke(T e)
 	{
 		static_assert(std::is_base_of<Utils::Event, T>::value, "Type is restricted to event types only");
 

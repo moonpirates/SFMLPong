@@ -3,9 +3,13 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-#include "Constants/Constants.h"
-#include "Core/Pong.h"
-#include "Utils/Time.h"
+#include <Utils/Time.h>
+#include <Utils/Events/GlobalEvents.h>
+
+#include <Constants/Constants.h>
+#include <Core/Pong.h>
+#include <Events/KeyPressedEvent.h>
+#include <Events/KeyReleasedEvent.h>
 
 namespace Game
 {

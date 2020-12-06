@@ -2,25 +2,16 @@
 
 using namespace Utils;
 
-//StackedCondition::StackedCondition(std::vector<std::unique_ptr<BaseCondition>> c)
-//{
-//	conditions = std::move(c);
-//
-//	std::cout << conditions.size() << std::endl;
-//}
-
-
-StackedCondition::StackedCondition(BaseCondition** con, int size)
+StackedCondition::StackedCondition(std::vector<std::unique_ptr<BaseCondition>> c) : conditions()
 {
-	for (int i = 0; i < size; i++)
-	{
-		std::cout << con[i]->IsValid() << std::endl;
-	}
+	conditions = std::move(c);
+
+	std::cout << conditions.size() << std::endl;
 }
 
 StackedCondition::~StackedCondition()
 {
-	//std::cout << conditions.size() << std::endl;
+	std::cout << conditions.size() << std::endl;
 }
 
 bool StackedCondition::IsValid()

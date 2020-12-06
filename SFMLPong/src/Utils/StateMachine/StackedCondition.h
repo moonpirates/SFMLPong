@@ -4,6 +4,8 @@
 #include <vector>
 #include <utility>
 #include <memory>
+#include <algorithm>
+#include <array>
 #include "BaseCondition.h"
 
 namespace Utils
@@ -12,13 +14,13 @@ namespace Utils
 	{
 	public:
 		StackedCondition() = delete;
-		StackedCondition(std::vector<std::unique_ptr<BaseCondition>> conditions);
+		StackedCondition(BaseCondition** conditions, int size);
 		~StackedCondition();
 
 		bool IsValid();
 
 	private:
-		std::vector<std::unique_ptr<BaseCondition>> conditions;
+		//BaseCondition** conditions;
 	};
 }
 

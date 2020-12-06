@@ -4,5 +4,5 @@ using namespace Game;
 
 bool KeyPressedCondition::IsValid()
 {
-	return false;
+	return true;
 }

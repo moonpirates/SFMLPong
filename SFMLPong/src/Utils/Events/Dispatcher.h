@@ -32,7 +32,6 @@ namespace Utils
 		void Invoke(T e);
 	
 	private:
-
 		std::unique_ptr<SubscriptionMap> subscriptionMap;
 
 		CallbackPairs* TryGetCallbackPairs(const std::type_info& typeInfo)

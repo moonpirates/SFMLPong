@@ -161,6 +161,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\StateMachine\KeyPressedCondition.cpp" />
+    <ClCompile Include="src\StateMachine\PongStateMachine.cpp" />
+    <ClCompile Include="src\Utils\StateMachine\BaseCondition.cpp" />
+    <ClCompile Include="src\Utils\StateMachine\BaseState.cpp" />
     <ClCompile Include="src\Utils\Events\Dispatcher.cpp" />
     <ClCompile Include="src\Controllers\AIController.cpp" />
     <ClCompile Include="src\Entities\Ball.cpp" />
@@ -173,8 +177,14 @@
     <ClCompile Include="src\Entities\Paddle.cpp" />
     <ClCompile Include="src\Core\Pong.cpp" />
     <ClCompile Include="src\Utils\Time.cpp" />
+    <ClCompile Include="src\Utils\StateMachine\StateMachine.cpp" />
+    <ClCompile Include="src\Utils\StateMachine\StackedCondition.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\StateMachine\KeyPressedCondition.h" />
+    <ClInclude Include="src\StateMachine\PongStateMachine.h" />
+    <ClInclude Include="src\Utils\StateMachine\BaseCondition.h" />
+    <ClInclude Include="src\Utils\StateMachine\BaseState.h" />
     <ClInclude Include="src\Events\KeyPressedEvent.h" />
     <ClInclude Include="src\Events\KeyReleasedEvent.h" />
     <ClInclude Include="src\Utils\Events\Dispatcher.h" />
@@ -194,6 +204,8 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="src\Utils\Time.h" />
     <ClInclude Include="src\Utils\Systems\Updatable.h" />
+    <ClInclude Include="src\Utils\StateMachine\StateMachine.h" />
+    <ClInclude Include="src\Utils\StateMachine\StackedCondition.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SFMLPong.rc" />

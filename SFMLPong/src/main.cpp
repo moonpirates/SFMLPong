@@ -3,6 +3,7 @@
 
 #include "Core/GameInstance.h"
 #include "Events/KeyPressedEvent.h"
+#include <StateMachine/PongStateMachine.h>
 #include "Utils/Events/Event.h"
 #include "Utils/Events/Dispatcher.h"
 #include <Utils/Events/GlobalEvents.h>
@@ -23,12 +24,13 @@ int main()
 	//Utils::GlobalEvents::Invoke(Game::KeyPressedEvent(sf::Keyboard::Key::A));
 	//Utils::GlobalEvents::Unsubscribe<Game::KeyPressedEvent>(context);
 
-	Game::GameInstance gameInstance = Game::GameInstance();
+	//Game::GameInstance gameInstance = Game::GameInstance();
 
-	while (gameInstance.running)
-	{
-	}
-	
+	//while (gameInstance.running)
+	//{
+	//}
+	Game::PongStateMachine pongStateMachine;
+
 
 	return 0;
 }

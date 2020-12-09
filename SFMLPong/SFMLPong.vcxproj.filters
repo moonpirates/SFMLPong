@@ -146,6 +146,9 @@
     <ClInclude Include="src\StateMachine\KeyPressedCondition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Macros\Macros.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SFMLPong.rc">

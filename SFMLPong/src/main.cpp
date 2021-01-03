@@ -14,7 +14,7 @@ void Henk(Game::KeyPressedEvent e)
 	std::cout << "HENK CALLBACK 1\n";
 } 
 
-int main()
+int main(int argc, char* argv[])
 {
 	//std::string* context = new std::string("random context");
 
@@ -29,8 +29,11 @@ int main()
 	//while (gameInstance.running)
 	//{
 	//}
-	Game::PongStateMachine pongStateMachine;
+	LOG("Heya from main");
+	LOG_WARN("En dit is een warning");
+	LOG_ERROR("En dit is een error");
 
+	Game::PongStateMachine pongStateMachine;
 
 	return 0;
 }

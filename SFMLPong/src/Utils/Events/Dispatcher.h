@@ -11,6 +11,7 @@
 #include <typeindex>
 
 #include <Utils/Events/Event.h>
+#include <Utils/Macros/Macros.h>
 
 namespace Utils
 {
@@ -120,7 +121,8 @@ namespace Utils
 	{
 		static_assert(std::is_base_of<Utils::Event, T>::value, "Type is restricted to event types only");
 
-		std::cout << "Calling callback for event: " << typeid(e).name() << std::endl;
+		//LOG("Calling callback for event: ");
+		Utils::Logger::Log(LOG_LEVEL_DEFAULT, [auto &out]() { out << "type: " << "honk" }, "fileblah", 123);
 
 		// Find whether the event is already registered in the map
 		CallbackPairs* callbackPairs = TryGetCallbackPairs(typeid(e));

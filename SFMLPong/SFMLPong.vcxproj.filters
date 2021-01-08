@@ -146,10 +146,10 @@
     <ClInclude Include="src\StateMachine\KeyPressedCondition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Macros\Macros.h">
+    <ClInclude Include="src\Utils\Logging\Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Utils\Logging\Logger.h">
+    <ClInclude Include="src\Utils\Macros\Macros.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -16,6 +16,8 @@ void Henk(Game::KeyPressedEvent e)
 
 int main(int argc, char* argv[])
 {
+	Game::PongStateMachine pongStateMachine;
+
 	//std::string* context = new std::string("random context");
 
 	//std::function<void(Game::KeyPressedEvent)> callback = Henk;
@@ -24,16 +26,11 @@ int main(int argc, char* argv[])
 	//Utils::GlobalEvents::Invoke(Game::KeyPressedEvent(sf::Keyboard::Key::A));
 	//Utils::GlobalEvents::Unsubscribe<Game::KeyPressedEvent>(context);
 
-	//Game::GameInstance gameInstance = Game::GameInstance();
+	Game::GameInstance gameInstance = Game::GameInstance();
 
-	//while (gameInstance.running)
-	//{
-	//}
-	LOG("Heya from main");
-	LOG_WARN("En dit is een warning");
-	LOG_ERROR("En dit is een error");
-
-	Game::PongStateMachine pongStateMachine;
+	while (gameInstance.running)
+	{
+	}
 
 	return 0;
 }

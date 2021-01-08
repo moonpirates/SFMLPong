@@ -4,12 +4,12 @@ using namespace Utils;
 
 StackedCondition::StackedCondition(std::vector<std::unique_ptr<BaseCondition>>&& conditions) : conditions(std::move(conditions))
 {
-	LOG("Size constructor: " << this->conditions.size());
+	//LOG("Size constructor: " << this->conditions.size());
 }
 
 StackedCondition::~StackedCondition()
 {
-	LOG("Size destructor: " << conditions.size());
+	//LOG("Size destructor: " << conditions.size());
 }
 
 bool StackedCondition::IsValid()

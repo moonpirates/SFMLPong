@@ -181,7 +181,7 @@
     <ClCompile Include="src\Utils\StateMachine\StackedCondition.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Macros\Macros.h" />
+    <ClInclude Include="src\Utils\Macros\Macros.h" />
     <ClInclude Include="src\StateMachine\KeyPressedCondition.h" />
     <ClInclude Include="src\StateMachine\PongStateMachine.h" />
     <ClInclude Include="src\Utils\Logging\Logger.h" />
